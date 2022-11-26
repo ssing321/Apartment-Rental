@@ -1,8 +1,8 @@
 <?php 
 // DB credentials.
 define('DB_HOST','localhost');
-define('DB_USER','root');
-define('DB_PASS','password');
+define('DB_USER','postgres');
+define('DB_PASS','postgres');
 define('DB_NAME','apartmentDB');
 // Establish database connection.
 try
