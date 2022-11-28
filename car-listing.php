@@ -64,34 +64,37 @@ error_reporting(0);
               <?php
               //Query for Listing count
               $sql = "SELECT id from tblvehicles";
-              $query = $dbh->prepare($sql);
-              $query->execute();
-              $results = $query->fetchAll(PDO::FETCH_OBJ);
-              $cnt = $query->rowCount();
+              // $query = $dbh->prepare($sql);
+              // $query->execute();
+              // $results = $query->fetchAll(PDO::FETCH_OBJ);
+              // $cnt = $query->rowCount();
+              $results = pg_query($con, $sql);
+              $cnt=pg_num_rows($results)
               ?>
               <p><span><?php echo htmlentities($cnt); ?> Listings</span></p>
             </div>
           </div>
 
           <?php $sql = "SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid  from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand";
-          $query = $dbh->prepare($sql);
-          $query->execute();
-          $results = $query->fetchAll(PDO::FETCH_OBJ);
+          // $query = $dbh->prepare($sql);
+          // $query->execute();
+          // $results = $query->fetchAll(PDO::FETCH_OBJ);
+          $results = pg_query($con, $sql);
           $cnt = 1;
-          if ($query->rowCount() > 0) {
-            foreach ($results as $result) {  ?>
+          if (pg_num_rows($results) > 0) {
+            while ($result = pg_fetch_array($results)) {  ?>
               <div class="product-listing-m gray-bg">
-                <div class="product-listing-img"><img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage1); ?>" class="img-responsive" alt="Image" /> </a>
+                <div class="product-listing-img"><img src="admin/img/vehicleimages/<?php echo htmlentities($result[8]); ?>" class="img-responsive" alt="Image" /> </a>
                 </div>
                 <div class="product-listing-content">
-                  <h5><a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>"><?php echo htmlentities($result->BrandName); ?> , <?php echo htmlentities($result->VehiclesTitle); ?></a></h5>
-                  <p class="list-price">$<?php echo htmlentities($result->PricePerDay); ?> Per Month</p>
+                  <h5><a href="vehical-details.php?vhid=<?php echo htmlentities($result[0]); ?>"><?php echo htmlentities($result[29]); ?> , <?php echo htmlentities($result[1]); ?></a></h5>
+                  <p class="list-price">$<?php echo htmlentities($result[4]); ?> Per Month</p>
                   <ul>
-                    <li><i class="fa fa-bath" aria-hidden="true"></i><?php echo htmlentities($result->SeatingCapacity); ?> Baths</li>
-                    <li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($result->ModelYear); ?> Built/Renovated</li>
-                    <li><i class="fa fa-bed" aria-hidden="true"></i><?php echo htmlentities($result->FuelType); ?></li>
+                    <li><i class="fa fa-bath" aria-hidden="true"></i><?php echo htmlentities($result[7]); ?> Baths</li>
+                    <li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($result[6]); ?> Built/Renovated</li>
+                    <li><i class="fa fa-bed" aria-hidden="true"></i><?php echo htmlentities($result[5]); ?>Beds</li>
                   </ul>
-                  <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>" class="btn">View Details <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                  <a href="vehical-details.php?vhid=<?php echo htmlentities($result[0]); ?>" class="btn">View Details <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
                 </div>
               </div>
           <?php }
@@ -111,13 +114,15 @@ error_reporting(0);
                     <option>Select Community</option>
 
                     <?php $sql = "SELECT * from  tblbrands ";
-                    $query = $dbh->prepare($sql);
-                    $query->execute();
-                    $results = $query->fetchAll(PDO::FETCH_OBJ);
+                    $results = pg_query($con, $sql);
+                    // $query = $dbh->prepare($sql);
+                    // $query->execute();
+                    // $results = $query->fetchAll(PDO::FETCH_OBJ);
+
                     $cnt = 1;
-                    if ($query->rowCount() > 0) {
-                      foreach ($results as $result) {       ?>
-                        <option value="<?php echo htmlentities($result->id); ?>"><?php echo htmlentities($result->BrandName); ?></option>
+                    if (pg_num_rows($results) > 0) {
+                      while ($result = pg_fetch_array($results)) {       ?>
+                        <option value="<?php echo htmlentities($result[0]); ?>"><?php echo htmlentities($result[1]); ?></option>
                     <?php }
                     } ?>
 
@@ -146,17 +151,18 @@ error_reporting(0);
             <div class="recent_addedcars">
               <ul>
                 <?php $sql = "SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid  from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand order by id desc limit 4";
-                $query = $dbh->prepare($sql);
-                $query->execute();
-                $results = $query->fetchAll(PDO::FETCH_OBJ);
+                // $query = $dbh->prepare($sql);
+                // $query->execute();
+                // $results = $query->fetchAll(PDO::FETCH_OBJ);
+                $results = pg_query($con, $sql);
                 $cnt = 1;
                 if ($query->rowCount() > 0) {
-                  foreach ($results as $result) {  ?>
+                  while (pg_num_rows($results) > 0) {  ?>
 
                     <li class="gray-bg">
-                      <div class="recent_post_img"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>"><img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage1); ?>" alt="image"></a> </div>
-                      <div class="recent_post_title"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>"><?php echo htmlentities($result->BrandName); ?> , <?php echo htmlentities($result->VehiclesTitle); ?></a>
-                        <p class="widget_price">$<?php echo htmlentities($result->PricePerDay); ?> Per Month</p>
+                      <div class="recent_post_img"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result[0]); ?>"><img src="admin/img/vehicleimages/<?php echo htmlentities($result[8]); ?>" alt="image"></a> </div>
+                      <div class="recent_post_title"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result[0]); ?>"><?php echo htmlentities($result[28]); ?> , <?php echo htmlentities($result[1]); ?></a>
+                        <p class="widget_price">$<?php echo htmlentities($result[4]); ?> Per Month</p>
                       </div>
                     </li>
                 <?php }
