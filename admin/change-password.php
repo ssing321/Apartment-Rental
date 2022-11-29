@@ -13,20 +13,22 @@ if(isset($_POST['submit']))
 $password=md5($_POST['password']);
 $newpassword=md5($_POST['newpassword']);
 $username=$_SESSION['alogin'];
-$sql ="SELECT Password FROM admin WHERE UserName=:username and Password=:password";
-$query= $dbh -> prepare($sql);
-$query-> bindParam(':username', $username, PDO::PARAM_STR);
-$query-> bindParam(':password', $password, PDO::PARAM_STR);
-$query-> execute();
-$results = $query -> fetchAll(PDO::FETCH_OBJ);
-if($query -> rowCount() > 0)
+$sql ="SELECT Password FROM admin WHERE UserName=$1 and Password=$2";
+$results = pg_query_params($con, $sql,array($username, $password));
+// $query= $dbh -> prepare($sql);
+// $query-> bindParam(':username', $username, PDO::PARAM_STR);
+// $query-> bindParam(':password', $password, PDO::PARAM_STR);
+// $query-> execute();
+// $results = $query -> fetchAll(PDO::FETCH_OBJ);
+if(pg_num_rows($results) > 0)
 {
-$con="update admin set Password=:newpassword where UserName=:username";
-$chngpwd1 = $dbh->prepare($con);
-$chngpwd1-> bindParam(':username', $username, PDO::PARAM_STR);
-$chngpwd1-> bindParam(':newpassword', $newpassword, PDO::PARAM_STR);
-$chngpwd1->execute();
-$msg="Your Password succesfully changed";
+	$query="update admin set Password=$1 where UserName=$2";
+	$results = pg_query_params($con, $sql, array($newpassword,$username));
+	// $chngpwd1 = $dbh->prepare($con);
+	// $chngpwd1-> bindParam(':username', $username, PDO::PARAM_STR);
+	// $chngpwd1-> bindParam(':newpassword', $newpassword, PDO::PARAM_STR);
+	// $chngpwd1->execute();
+	$msg="Your Password succesfully changed";
 }
 else {
 $error="Your current password is not valid.";	

@@ -5,13 +5,14 @@ if(isset($_POST['login']))
 {
 $email=$_POST['username'];
 $password=md5($_POST['password']);
-$sql ="SELECT UserName,Password FROM admin WHERE UserName=:email and Password=:password";
-$query= $dbh -> prepare($sql);
-$query-> bindParam(':email', $email, PDO::PARAM_STR);
-$query-> bindParam(':password', $password, PDO::PARAM_STR);
-$query-> execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-if($query->rowCount() > 0)
+$sql ="SELECT UserName,Password FROM admin WHERE UserName=$1 and Password=$2";
+$results = pg_query_params($con, $sql, array($email, $password));
+// $query= $dbh -> prepare($sql);
+// $query-> bindParam(':email', $email, PDO::PARAM_STR);
+// $query-> bindParam(':password', $password, PDO::PARAM_STR);
+// $query-> execute();
+// $results=$query->fetchAll(PDO::FETCH_OBJ);
+if(pg_num_rows($results) > 0)
 {
 $_SESSION['alogin']=$_POST['username'];
 echo "<script type='text/javascript'> document.location = 'change-password.php'; </script>";
