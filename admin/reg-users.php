@@ -11,9 +11,10 @@ if(isset($_GET['del']))
 {
 $id=$_GET['del'];
 $sql = "delete from tblbrands  WHERE id=:id";
-$query = $dbh->prepare($sql);
-$query -> bindParam(':id',$id, PDO::PARAM_STR);
-$query -> execute();
+$results = pg_query_params($con, $sql);
+// $query = $dbh->prepare($sql);
+// $query -> bindParam(':id',$id, PDO::PARAM_STR);
+// $query -> execute();
 $msg="Page data updated  successfully";
 
 }
@@ -123,37 +124,31 @@ $msg="Page data updated  successfully";
 									<tbody>
 
 									<?php $sql = "SELECT * from  tblusers ";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $result)
-{				?>	
+									$results = pg_query($con, $sql);
+									// $query = $dbh -> prepare($sql);
+									// $query->execute();
+									// $results=$query->fetchAll(PDO::FETCH_OBJ);
+									$cnt=1;
+									if(pg_num_rows($results)>0)
+									{
+									while ($result = pg_fetch_array($results))
+									{				?>	
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
-											<td><?php echo htmlentities($result->FullName);?></td>
-											<td><?php echo htmlentities($result->EmailId);?></td>
-											<td><?php echo htmlentities($result->ContactNo);?></td>
-	<td><?php echo htmlentities($result->dob);?></td>
-											<td><?php echo htmlentities($result->Address);?></td>
-											<td><?php echo htmlentities($result->City);?></td>
-											<td><?php echo htmlentities($result->Country);?></td>
-											<td><?php echo htmlentities($result->RegDate);?></td>
+											<td><?php echo htmlentities($result['FullName']);?></td>
+											<td><?php echo htmlentities($result['emailid']);?></td>
+											<td><?php echo htmlentities($result['contactno']);?></td>
+											<td><?php echo htmlentities($result['dob']);?></td>
+											<td><?php echo htmlentities($result['Address']);?></td>
+											<td><?php echo htmlentities($result['City']);?></td>
+											<td><?php echo htmlentities($result['Country']);?></td>
+											<td><?php echo htmlentities($result['regdate']);?></td>
 										</tr>
 										<?php $cnt=$cnt+1; }} ?>
-										
 									</tbody>
 								</table>
-
-						
-
 							</div>
 						</div>
-
-					
-
 					</div>
 				</div>
 
