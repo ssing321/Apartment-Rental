@@ -11,9 +11,10 @@ if(isset($_GET['del']))
 {
 $id=$_GET['del'];
 $sql = "delete from tblbrands  WHERE id=:id";
-$query = $dbh->prepare($sql);
-$query -> bindParam(':id',$id, PDO::PARAM_STR);
-$query -> execute();
+$results = pg_query($con, $sql);
+// $query = $dbh->prepare($sql);
+// $query -> bindParam(':id',$id, PDO::PARAM_STR);
+// $query -> execute();
 $msg="Page data updated  successfully";
 
 }
@@ -116,21 +117,22 @@ $msg="Page data updated  successfully";
 									<tbody>
 
 									<?php $sql = "SELECT * from  tblbrands ";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $result)
-{				?>	
+									$results = pg_query($con, $sql);
+									// $query = $dbh -> prepare($sql);
+									// $query->execute();
+									// $results=$query->fetchAll(PDO::FETCH_OBJ);
+										$cnt=1;
+										if(pg_num_rows($results)>0)
+										{
+											while ($result = pg_fetch_array($results))
+										{				?>	
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
-											<td><?php echo htmlentities($result->BrandName);?></td>
-											<td><?php echo htmlentities($result->CreationDate);?></td>
-											<td><?php echo htmlentities($result->UpdationDate);?></td>
-<td><a href="edit-brand.php?id=<?php echo $result->id;?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-<a href="manage-brands.php?del=<?php echo $result->id;?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td>
+											<td><?php echo htmlentities($result[1]);?></td>
+											<td><?php echo htmlentities($result[2]);?></td>
+											<td><?php echo htmlentities($result[3]);?></td>
+											<td><a href="edit-brand.php?id=<?php echo $result[0];?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+											<a href="manage-brands.php?del=<?php echo $result[0];?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a></td>
 										</tr>
 										<?php $cnt=$cnt+1; }} ?>
 										

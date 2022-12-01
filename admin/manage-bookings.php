@@ -11,11 +11,12 @@ if(isset($_REQUEST['eid']))
 	{
 $eid=intval($_GET['eid']);
 $status="2";
-$sql = "UPDATE tblbooking SET Status=:status WHERE  id=:eid";
-$query = $dbh->prepare($sql);
-$query -> bindParam(':status',$status, PDO::PARAM_STR);
-$query-> bindParam(':eid',$eid, PDO::PARAM_STR);
-$query -> execute();
+$sql = "UPDATE tblbooking SET Status=$1 WHERE  id=$2";
+$results = pg_query_params($con, $sql, array($eid,$status));
+// $query = $dbh->prepare($sql);
+// $query -> bindParam(':status',$status, PDO::PARAM_STR);
+// $query-> bindParam(':eid',$eid, PDO::PARAM_STR);
+// $query -> execute();
 
 $msg="Booking Successfully Cancelled";
 }
@@ -25,12 +26,12 @@ if(isset($_REQUEST['aeid']))
 	{
 $aeid=intval($_GET['aeid']);
 $status=1;
-
-$sql = "UPDATE tblbooking SET Status=:status WHERE  id=:aeid";
-$query = $dbh->prepare($sql);
-$query -> bindParam(':status',$status, PDO::PARAM_STR);
-$query-> bindParam(':aeid',$aeid, PDO::PARAM_STR);
-$query -> execute();
+$sql = "UPDATE tblbooking SET Status=$1 WHERE  id=$2";
+$results = pg_query_params($con, $sql, array($aeid,$status));
+// $query = $dbh->prepare($sql);
+// $query -> bindParam(':status',$status, PDO::PARAM_STR);
+// $query-> bindParam(':aeid',$aeid, PDO::PARAM_STR);
+// $query -> execute();
 
 $msg="Booking Successfully Confirmed";
 }
@@ -135,39 +136,39 @@ $msg="Booking Successfully Confirmed";
 										</tr>
 									</tfoot>
 									<tbody>
-
-									<?php $sql = "SELECT tblusers.FullName,tblbrands.BrandName,tblvehicles.VehiclesTitle,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.VehicleId as vid,tblbooking.Status,tblbooking.PostingDate,tblbooking.id  from tblbooking join tblvehicles on tblvehicles.id=tblbooking.VehicleId join tblusers on tblusers.EmailId=tblbooking.userEmail join tblbrands on tblvehicles.VehiclesBrand=tblbrands.id  ";
-$query = $dbh -> prepare($sql);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $result)
-{				?>	
+									<?php $sql = "SELECT tblusers.FullName,tblbrands.BrandName,tblvehicles.VehiclesTitle,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.VehicleId as vid,tblbooking.Status,tblbooking.PostingDate,tblbooking.id  from tblbooking join tblvehicles on tblvehicles.id=tblbooking.VehicleId join tblusers on tblusers.EmailId=tblbooking.userEmail join tblbrands on tblvehicles.VehiclesBrand=tblbrands.id";
+									// $query = $dbh -> prepare($sql);
+									// $query->execute();
+									// $results=$query->fetchAll(PDO::FETCH_OBJ);
+									$results = pg_query($con, $sql);
+									$cnt=1;
+									if(pg_num_rows($results)>0)
+									{
+										while ($result= pg_fetch_array($results))
+									{				?>	
 										<tr>
 											<td><?php echo htmlentities($cnt);?></td>
-											<td><?php echo htmlentities($result->FullName);?></td>
-											<td><a href="edit-vehicle.php?id=<?php echo htmlentities($result->vid);?>"><?php echo htmlentities($result->BrandName);?> , <?php echo htmlentities($result->VehiclesTitle);?></td>
-											<td><?php echo htmlentities($result->FromDate);?></td>
-											<td><?php echo htmlentities($result->ToDate);?></td>
-											<td><?php echo htmlentities($result->message);?></td>
+											<td><?php echo htmlentities($result[0]);?></td>
+											<td><a href="edit-vehicle.php?id=<?php echo htmlentities($result[6]);?>"><?php echo htmlentities($result[1]);?> , <?php echo htmlentities($result[2]);?></td>
+											<td><?php echo htmlentities($result[3]);?></td>
+											<td><?php echo htmlentities($result[4]);?></td>
+											<td><?php echo htmlentities($result[5]);?></td>
 											<td><?php 
-if($result->Status==0)
-{
-echo htmlentities('Not Confirmed yet');
-} else if ($result->Status==1) {
-echo htmlentities('Confirmed');
-}
- else{
- 	echo htmlentities('Cancelled');
- }
+										if($result[7]==0)
+										{
+										echo htmlentities('Not Confirmed yet');
+										} else if ($result[7]==1) {
+										echo htmlentities('Confirmed');
+										}
+										else{
+											echo htmlentities('Cancelled');
+										}
 										?></td>
-											<td><?php echo htmlentities($result->PostingDate);?></td>
-										<td><a href="manage-bookings.php?aeid=<?php echo htmlentities($result->id);?>" onclick="return confirm('Do you really want to Confirm this booking')"> Confirm</a> /
+											<td><?php echo htmlentities($result[8]);?></td>
+										<td><a href="manage-bookings.php?aeid=<?php echo htmlentities($result[9]);?>" onclick="return confirm('Do you really want to Confirm this booking')"> Confirm</a> /
 
 
-<a href="manage-bookings.php?eid=<?php echo htmlentities($result->id);?>" onclick="return confirm('Do you really want to Cancel this Booking')"> Cancel</a>
+<a href="manage-bookings.php?eid=<?php echo htmlentities($result[9]);?>" onclick="return confirm('Do you really want to Cancel this Booking')"> Cancel</a>
 </td>
 
 										</tr>

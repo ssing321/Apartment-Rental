@@ -11,7 +11,7 @@ if(isset($_GET['del']))
 {
 $id=$_GET['del'];
 $sql = "delete from tblbrands  WHERE id=:id";
-$results = pg_query_params($con, $sql);
+$results = pg_query($con, $sql);
 // $query = $dbh->prepare($sql);
 // $query -> bindParam(':id',$id, PDO::PARAM_STR);
 // $query -> execute();
@@ -139,9 +139,9 @@ $msg="Page data updated  successfully";
 											<td><?php echo htmlentities($result['emailid']);?></td>
 											<td><?php echo htmlentities($result['contactno']);?></td>
 											<td><?php echo htmlentities($result['dob']);?></td>
-											<td><?php echo htmlentities($result['Address']);?></td>
-											<td><?php echo htmlentities($result['City']);?></td>
-											<td><?php echo htmlentities($result['Country']);?></td>
+											<td><?php echo htmlentities($result['address']);?></td>
+											<td><?php echo htmlentities($result['city']);?></td>
+											<td><?php echo htmlentities($result['country']);?></td>
 											<td><?php echo htmlentities($result['regdate']);?></td>
 										</tr>
 										<?php $cnt=$cnt+1; }} ?>
