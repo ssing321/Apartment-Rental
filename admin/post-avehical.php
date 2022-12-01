@@ -40,35 +40,36 @@ move_uploaded_file($_FILES["img3"]["tmp_name"],"img/vehicleimages/".$_FILES["img
 move_uploaded_file($_FILES["img4"]["tmp_name"],"img/vehicleimages/".$_FILES["img4"]["name"]);
 move_uploaded_file($_FILES["img5"]["tmp_name"],"img/vehicleimages/".$_FILES["img5"]["name"]);
 
-$sql="INSERT INTO tblvehicles(VehiclesTitle,VehiclesBrand,VehiclesOverview,PricePerDay,FuelType,ModelYear,SeatingCapacity,Vimage1,Vimage2,Vimage3,Vimage4,Vimage5,AirConditioner,PowerDoorLocks,AntiLockBrakingSystem,BrakeAssist,PowerSteering,DriverAirbag,PassengerAirbag,PowerWindows,CDPlayer,CentralLocking,CrashSensor,LeatherSeats) VALUES(:vehicletitle,:brand,:vehicleoverview,:priceperday,:fueltype,:modelyear,:seatingcapacity,:vimage1,:vimage2,:vimage3,:vimage4,:vimage5,:airconditioner,:powerdoorlocks,:antilockbrakingsys,:brakeassist,:powersteering,:driverairbag,:passengerairbag,:powerwindow,:cdplayer,:centrallocking,:crashcensor,:leatherseats)";
-$query = $dbh->prepare($sql);
-$query->bindParam(':vehicletitle',$vehicletitle,PDO::PARAM_STR);
-$query->bindParam(':brand',$brand,PDO::PARAM_STR);
-$query->bindParam(':vehicleoverview',$vehicleoverview,PDO::PARAM_STR);
-$query->bindParam(':priceperday',$priceperday,PDO::PARAM_STR);
-$query->bindParam(':fueltype',$fueltype,PDO::PARAM_STR);
-$query->bindParam(':modelyear',$modelyear,PDO::PARAM_STR);
-$query->bindParam(':seatingcapacity',$seatingcapacity,PDO::PARAM_STR);
-$query->bindParam(':vimage1',$vimage1,PDO::PARAM_STR);
-$query->bindParam(':vimage2',$vimage2,PDO::PARAM_STR);
-$query->bindParam(':vimage3',$vimage3,PDO::PARAM_STR);
-$query->bindParam(':vimage4',$vimage4,PDO::PARAM_STR);
-$query->bindParam(':vimage5',$vimage5,PDO::PARAM_STR);
-$query->bindParam(':airconditioner',$airconditioner,PDO::PARAM_STR);
-$query->bindParam(':powerdoorlocks',$powerdoorlocks,PDO::PARAM_STR);
-$query->bindParam(':antilockbrakingsys',$antilockbrakingsys,PDO::PARAM_STR);
-$query->bindParam(':brakeassist',$brakeassist,PDO::PARAM_STR);
-$query->bindParam(':powersteering',$powersteering,PDO::PARAM_STR);
-$query->bindParam(':driverairbag',$driverairbag,PDO::PARAM_STR);
-$query->bindParam(':passengerairbag',$passengerairbag,PDO::PARAM_STR);
-$query->bindParam(':powerwindow',$powerwindow,PDO::PARAM_STR);
-$query->bindParam(':cdplayer',$cdplayer,PDO::PARAM_STR);
-$query->bindParam(':centrallocking',$centrallocking,PDO::PARAM_STR);
-$query->bindParam(':crashcensor',$crashcensor,PDO::PARAM_STR);
-$query->bindParam(':leatherseats',$leatherseats,PDO::PARAM_STR);
-$query->execute();
-$lastInsertId = $dbh->lastInsertId();
-if($lastInsertId)
+$sql="INSERT INTO tblvehicles(VehiclesTitle,VehiclesBrand,VehiclesOverview,PricePerDay,FuelType,ModelYear,SeatingCapacity,Vimage1,Vimage2,Vimage3,Vimage4,Vimage5,AirConditioner,PowerDoorLocks,AntiLockBrakingSystem,BrakeAssist,PowerSteering,DriverAirbag,PassengerAirbag,PowerWindows,CDPlayer,CentralLocking,CrashSensor,LeatherSeats) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24)";
+$results = pg_query_params($con, $sql, array($vehicletitle, $brand, $vehicleoverview, $priceperday, $fueltype, $modelyear ,$seatingcapacity,$vimage1,$vimage2,$vimage3,$vimage4,$vimage5,$airconditioner,$powerdoorlocks,$driverairbag,$passengerairbag,$powerwindow,$cdplayer,$centrallocking,$crashcensor,$leatherseats));
+// $query = $dbh->prepare($sql);
+// $query->bindParam(':vehicletitle',$vehicletitle,PDO::PARAM_STR);
+// $query->bindParam(':brand',$brand,PDO::PARAM_STR);
+// $query->bindParam(':vehicleoverview',$vehicleoverview,PDO::PARAM_STR);
+// $query->bindParam(':priceperday',$priceperday,PDO::PARAM_STR);
+// $query->bindParam(':fueltype',$fueltype,PDO::PARAM_STR);
+// $query->bindParam(':modelyear',$modelyear,PDO::PARAM_STR);
+// $query->bindParam(':seatingcapacity',$seatingcapacity,PDO::PARAM_STR);
+// $query->bindParam(':vimage1',$vimage1,PDO::PARAM_STR);
+// $query->bindParam(':vimage2',$vimage2,PDO::PARAM_STR);
+// $query->bindParam(':vimage3',$vimage3,PDO::PARAM_STR);
+// $query->bindParam(':vimage4',$vimage4,PDO::PARAM_STR);
+// $query->bindParam(':vimage5',$vimage5,PDO::PARAM_STR);
+// $query->bindParam(':airconditioner',$airconditioner,PDO::PARAM_STR);
+// $query->bindParam(':powerdoorlocks',$powerdoorlocks,PDO::PARAM_STR);
+// $query->bindParam(':antilockbrakingsys',$antilockbrakingsys,PDO::PARAM_STR);
+// $query->bindParam(':brakeassist',$brakeassist,PDO::PARAM_STR);
+// $query->bindParam(':powersteering',$powersteering,PDO::PARAM_STR);
+// $query->bindParam(':driverairbag',$driverairbag,PDO::PARAM_STR);
+// $query->bindParam(':passengerairbag',$passengerairbag,PDO::PARAM_STR);
+// $query->bindParam(':powerwindow',$powerwindow,PDO::PARAM_STR);
+// $query->bindParam(':cdplayer',$cdplayer,PDO::PARAM_STR);
+// $query->bindParam(':centrallocking',$centrallocking,PDO::PARAM_STR);
+// $query->bindParam(':crashcensor',$crashcensor,PDO::PARAM_STR);
+// $query->bindParam(':leatherseats',$leatherseats,PDO::PARAM_STR);
+// $query->execute();
+// $lastInsertId = $dbh->lastInsertId();
+if($results)
 {
 $msg="Vehicle posted successfully";
 }
@@ -162,16 +163,17 @@ $error="Something went wrong. Please try again";
 <select class="selectpicker" name="brandname" required>
 <option value=""> Select </option>
 <?php $ret="select id,BrandName from tblbrands";
-$query= $dbh -> prepare($ret);
+// $query= $dbh -> prepare($ret);
 //$query->bindParam(':id',$id, PDO::PARAM_STR);
-$query-> execute();
-$results = $query -> fetchAll(PDO::FETCH_OBJ);
-if($query -> rowCount() > 0)
+// $query-> execute();
+// $results = $query -> fetchAll(PDO::FETCH_OBJ);
+$results = pg_query($con, $sql);
+if(pg_num_rows($results)>0)
 {
-foreach($results as $result)
+while ($result = pg_fetch_array($results))
 {
 ?>
-<option value="<?php echo htmlentities($result->id);?>"><?php echo htmlentities($result->BrandName);?></option>
+<option value="<?php echo htmlentities($result['id']);?>"><?php echo htmlentities($result['brandname']);?></option>
 <?php }} ?>
 
 </select>
