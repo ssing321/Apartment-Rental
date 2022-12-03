@@ -87,9 +87,9 @@ if (strlen($_SESSION['login']) == 0) {
               </div>
 
               <div class="dealer_info">
-                <h5><?php echo htmlentities($result['FullName']); ?></h5>
-                <p><?php echo htmlentities($result['Address']); ?><br>
-                  <?php echo htmlentities($result['City']); ?>&nbsp;<?php echo htmlentities($result['Country']);
+                <h5><?php echo htmlentities($result[1]); ?></h5>
+                <p><?php echo htmlentities($result[6]); ?><br>
+                  <?php echo htmlentities($result[7]); ?>&nbsp;<?php echo htmlentities($result[8]);
                                                                   }
                                                                 } ?></p>
               </div>
@@ -116,10 +116,10 @@ if (strlen($_SESSION['login']) == 0) {
                           while ($result= pg_fetch_array($results)) {  ?>
 
                             <li>
-                              <div class="vehicle_img"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result['vid']); ?>""><img src=" admin/img/vehicleimages/<?php echo htmlentities($result['Vimage1']); ?>" alt="image"></a> </div>
+                              <div class="vehicle_img"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result[2]); ?>""><img src=" admin/img/vehicleimages/<?php echo htmlentities($result[0]); ?>" alt="image"></a> </div>
                               <div class="vehicle_title">
-                                <h6><a href="vehical-details.php?vhid=<?php echo htmlentities($result['vid']); ?>""> <?php echo htmlentities($result['BrandName']); ?> , <?php echo htmlentities($result['VehiclesTitle']); ?></a></h6>
-                  <p><b>From Date:</b> <?php echo htmlentities($result['FromDate']); ?><br /> <b>To Date:</b> <?php echo htmlentities($result['ToDate']); ?></p>
+                                <h6><a href="vehical-details.php?vhid=<?php echo htmlentities($result[0]); ?>""> <?php echo htmlentities($result[3]); ?> , <?php echo htmlentities($result[1]); ?></a></h6>
+                  <p><b>From Date:</b> <?php echo htmlentities($result[4]); ?><br /> <b>To Date:</b> <?php echo htmlentities($result[5]); ?></p>
                 </div>
                 <?php if ($result['Status'] == 1) { ?>
                 <div class=" vehicle_status"> <a href="#" class="btn outline btn-xs active-btn">Confirmed</a>
@@ -139,7 +139,7 @@ if (strlen($_SESSION['login']) == 0) {
                               </div>
                             <?php } ?>
                             <div style="float: left">
-                              <p><b>Message:</b> <?php echo htmlentities($result['message']); ?> </p>
+                              <p><b>Message:</b> <?php echo htmlentities($result[6]); ?> </p>
                             </div>
                             </li>
                         <?php }
