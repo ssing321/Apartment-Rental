@@ -9,17 +9,18 @@ if (isset($_POST['submit'])) {
   $useremail = $_SESSION['login'];
   $status = 0;
   $vhid = $_GET['vhid'];
-  $sql = "INSERT INTO  tblbooking(userEmail,VehicleId,FromDate,ToDate,message,Status) VALUES(:useremail,:vhid,:fromdate,:todate,:message,:status)";
-  $query = $dbh->prepare($sql);
-  $query->bindParam(':useremail', $useremail, PDO::PARAM_STR);
-  $query->bindParam(':vhid', $vhid, PDO::PARAM_STR);
-  $query->bindParam(':fromdate', $fromdate, PDO::PARAM_STR);
-  $query->bindParam(':todate', $todate, PDO::PARAM_STR);
-  $query->bindParam(':message', $message, PDO::PARAM_STR);
-  $query->bindParam(':status', $status, PDO::PARAM_STR);
-  $query->execute();
-  $lastInsertId = $dbh->lastInsertId();
-  if ($lastInsertId) {
+  $sql = "INSERT INTO  tblbooking(userEmail,VehicleId,FromDate,ToDate,message,Status) VALUES($useremail,$vhid,$fromdate,$todate,$message,$status)";
+  // $query = $dbh->prepare($sql);
+  // $query->bindParam(':useremail', $useremail, PDO::PARAM_STR);
+  // $query->bindParam(':vhid', $vhid, PDO::PARAM_STR);
+  // $query->bindParam(':fromdate', $fromdate, PDO::PARAM_STR);
+  // $query->bindParam(':todate', $todate, PDO::PARAM_STR);
+  // $query->bindParam(':message', $message, PDO::PARAM_STR);
+  // $query->bindParam(':status', $status, PDO::PARAM_STR);
+  // $query->execute();
+  $results = pg_query_params($con, $sql, array($useremail, $vhid,$fromdate,$todate,$message,$status));
+  $result = pg_fetch_array($results);
+  if ($result) {
     echo "<script>alert('Booking successfull.');</script>";
   } else {
     echo "<script>alert('Something went wrong. Please try again');</script>";
@@ -71,26 +72,27 @@ if (isset($_POST['submit'])) {
 
   <?php
   $vhid = intval($_GET['vhid']);
-  $sql = "SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid  from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand where tblvehicles.id=:vhid";
-  $query = $dbh->prepare($sql);
-  $query->bindParam(':vhid', $vhid, PDO::PARAM_STR);
-  $query->execute();
-  $results = $query->fetchAll(PDO::FETCH_OBJ);
+  $sql = "SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid  from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand where tblvehicles.id=$1";
+  // $query = $dbh->prepare($sql);
+  // $query->bindParam(':vhid', $vhid, PDO::PARAM_STR);
+  // $query->execute();
+  // $results = $query->fetchAll(PDO::FETCH_OBJ);
+  $results = pg_query_params($con, $sql, array($vhid));
   $cnt = 1;
-  if ($query->rowCount() > 0) {
-    foreach ($results as $result) {
-      $_SESSION['brndid'] = $result->bid;
+  if (pg_num_rows($results)>0) {
+    while ($result = pg_fetch_array($results)) {
+      $_SESSION['brndid'] = $result[29];
   ?>
 
       <section id="listing_img_slider">
-        <div><img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage1); ?>" class="img-responsive" alt="image" width="900" height="560"></div>
-        <div><img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage2); ?>" class="img-responsive" alt="image" width="900" height="560"></div>
-        <div><img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage3); ?>" class="img-responsive" alt="image" width="900" height="560"></div>
-        <div><img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage4); ?>" class="img-responsive" alt="image" width="900" height="560"></div>
-        <?php if ($result->Vimage5 == "") {
+        <div><img src="admin/img/vehicleimages/<?php echo htmlentities($result[8]); ?>" class="img-responsive" alt="image" width="900" height="560"></div>
+        <div><img src="admin/img/vehicleimages/<?php echo htmlentities($result[9]); ?>" class="img-responsive" alt="image" width="900" height="560"></div>
+        <div><img src="admin/img/vehicleimages/<?php echo htmlentities($result[10]); ?>" class="img-responsive" alt="image" width="900" height="560"></div>
+        <div><img src="admin/img/vehicleimages/<?php echo htmlentities($result[11]); ?>" class="img-responsive" alt="image" width="900" height="560"></div>
+        <?php if ($result[12] == "") {
         } else {
         ?>
-          <div><img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage5); ?>" class="img-responsive" alt="image" width="900" height="560"></div>
+          <div><img src="admin/img/vehicleimages/<?php echo htmlentities($result[12]); ?>" class="img-responsive" alt="image" width="900" height="560"></div>
         <?php } ?>
       </section>
       <!--/Listing-Image-Slider-->
@@ -101,11 +103,11 @@ if (isset($_POST['submit'])) {
         <div class="container">
           <div class="listing_detail_head row">
             <div class="col-md-9">
-              <h2><?php echo htmlentities($result->BrandName); ?> , <?php echo htmlentities($result->VehiclesTitle); ?></h2>
+              <h2><?php echo htmlentities($result[27]); ?> , <?php echo htmlentities($result[1]); ?></h2>
             </div>
             <div class="col-md-3">
               <div class="price_info">
-                <p>$<?php echo htmlentities($result->PricePerDay); ?> </p>per month
+                <p>$<?php echo htmlentities($result[4]); ?> </p>per day
 
               </div>
             </div>
@@ -116,16 +118,16 @@ if (isset($_POST['submit'])) {
                 <ul>
 
                   <li> <i class="fa fa-calendar" aria-hidden="true"></i>
-                    <h5><?php echo htmlentities($result->ModelYear); ?></h5>
+                    <h5><?php echo htmlentities($result[6]); ?></h5>
                     <p>Built/Renovated Year</p>
                   </li>
                   <li> <i class="fa fa-bed" aria-hidden="true"></i>
-                    <h5><?php echo htmlentities($result->FuelType); ?></h5>
+                    <h5><?php echo htmlentities($result[5]); ?></h5>
                     <p>Beds</p>
                   </li>
 
                   <li> <i class="fa fa-bath" aria-hidden="true"></i>
-                    <h5><?php echo htmlentities($result->SeatingCapacity); ?></h5>
+                    <h5><?php echo htmlentities($result[7]); ?></h5>
                     <p>Baths</p>
                   </li>
                 </ul>
@@ -134,9 +136,9 @@ if (isset($_POST['submit'])) {
                 <div class="listing_detail_wrap">
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs gray-bg" role="tablist">
-                    <li role="presentation" class="active"><a href="#vehicle-overview " aria-controls="vehicle-overview" role="tab" data-toggle="tab">Vehicle Overview </a></li>
+                    <li role="presentation" class="active"><a href="#vehicle-overview " aria-controls="vehicle-overview" role="tab" data-toggle="tab">Apartment Overview </a></li>
 
-                    <li role="presentation"><a href="#accessories" aria-controls="accessories" role="tab" data-toggle="tab">Accessories</a></li>
+                    <li role="presentation"><a href="#accessories" aria-controls="accessories" role="tab" data-toggle="tab">Facilities</a></li>
                   </ul>
 
                   <!-- Tab panes -->
@@ -144,7 +146,7 @@ if (isset($_POST['submit'])) {
                     <!-- vehicle-overview -->
                     <div role="tabpanel" class="tab-pane active" id="vehicle-overview">
 
-                      <p><?php echo htmlentities($result->VehiclesOverview); ?></p>
+                      <p><?php echo htmlentities($result[3]); ?></p>
                     </div>
 
 
@@ -154,13 +156,13 @@ if (isset($_POST['submit'])) {
                       <table>
                         <thead>
                           <tr>
-                            <th colspan="2">Accessories</th>
+                            <th colspan="2">Facility</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
-                            <td>Air Conditioner</td>
-                            <?php if ($result->AirConditioner == 1) {
+                            <td>Game Room</td>
+                            <?php if ($result[13] == 1) {
                             ?>
                               <td><i class="fa fa-check" aria-hidden="true"></i></td>
                             <?php } else { ?>
@@ -169,8 +171,8 @@ if (isset($_POST['submit'])) {
                           </tr>
 
                           <tr>
-                            <td>AntiLock Braking System</td>
-                            <?php if ($result->AntiLockBrakingSystem == 1) {
+                            <td>In Unit Washer Dryer</td>
+                            <?php if ($result[14] == 1) {
                             ?>
                               <td><i class="fa fa-check" aria-hidden="true"></i></td>
                             <?php } else { ?>
@@ -179,8 +181,8 @@ if (isset($_POST['submit'])) {
                           </tr>
 
                           <tr>
-                            <td>Power Steering</td>
-                            <?php if ($result->PowerSteering == 1) {
+                            <td>BBQ Fire Place</td>
+                            <?php if ($result[15] == 1) {
                             ?>
                               <td><i class="fa fa-check" aria-hidden="true"></i></td>
                             <?php } else { ?>
@@ -191,9 +193,9 @@ if (isset($_POST['submit'])) {
 
                           <tr>
 
-                            <td>Power Windows</td>
+                            <td>Dishwasher</td>
 
-                            <?php if ($result->PowerWindows == 1) {
+                            <?php if ($result[16] == 1) {
                             ?>
                               <td><i class="fa fa-check" aria-hidden="true"></i></td>
                             <?php } else { ?>
@@ -202,8 +204,8 @@ if (isset($_POST['submit'])) {
                           </tr>
 
                           <tr>
-                            <td>CD Player</td>
-                            <?php if ($result->CDPlayer == 1) {
+                            <td>Car Parking</td>
+                            <?php if ($result[17] == 1) {
                             ?>
                               <td><i class="fa fa-check" aria-hidden="true"></i></td>
                             <?php } else { ?>
@@ -212,8 +214,8 @@ if (isset($_POST['submit'])) {
                           </tr>
 
                           <tr>
-                            <td>Leather Seats</td>
-                            <?php if ($result->LeatherSeats == 1) {
+                            <td>Gym</td>
+                            <?php if ($result[18] == 1) {
                             ?>
                               <td><i class="fa fa-check" aria-hidden="true"></i></td>
                             <?php } else { ?>
@@ -222,8 +224,8 @@ if (isset($_POST['submit'])) {
                           </tr>
 
                           <tr>
-                            <td>Central Locking</td>
-                            <?php if ($result->CentralLocking == 1) {
+                            <td>Wifi</td>
+                            <?php if ($result[19] == 1) {
                             ?>
                               <td><i class="fa fa-check" aria-hidden="true"></i></td>
                             <?php } else { ?>
@@ -232,8 +234,8 @@ if (isset($_POST['submit'])) {
                           </tr>
 
                           <tr>
-                            <td>Power Door Locks</td>
-                            <?php if ($result->PowerDoorLocks == 1) {
+                            <td>Electricity Included</td>
+                            <?php if ($result[20] == 1) {
                             ?>
                               <td><i class="fa fa-check" aria-hidden="true"></i></td>
                             <?php } else { ?>
@@ -241,8 +243,8 @@ if (isset($_POST['submit'])) {
                             <?php } ?>
                           </tr>
                           <tr>
-                            <td>Brake Assist</td>
-                            <?php if ($result->BrakeAssist == 1) {
+                            <td>Oven</td>
+                            <?php if ($result[21] == 1) {
                             ?>
                               <td><i class="fa fa-check" aria-hidden="true"></i></td>
                             <?php  } else { ?>
@@ -251,8 +253,8 @@ if (isset($_POST['submit'])) {
                           </tr>
 
                           <tr>
-                            <td>Driver Airbag</td>
-                            <?php if ($result->DriverAirbag == 1) {
+                            <td>Carpeted</td>
+                            <?php if ($result[22] == 1) {
                             ?>
                               <td><i class="fa fa-check" aria-hidden="true"></i></td>
                             <?php } else { ?>
@@ -261,8 +263,8 @@ if (isset($_POST['submit'])) {
                           </tr>
 
                           <tr>
-                            <td>Passenger Airbag</td>
-                            <?php if ($result->PassengerAirbag == 1) {
+                            <td>24x7 Residence Asssitance</td>
+                            <?php if ($result[23] == 1) {
                             ?>
                               <td><i class="fa fa-check" aria-hidden="true"></i></td>
                             <?php } else { ?>
@@ -271,8 +273,8 @@ if (isset($_POST['submit'])) {
                           </tr>
 
                           <tr>
-                            <td>Crash Sensor</td>
-                            <?php if ($result->CrashSensor == 1) {
+                            <td>Furnished</td>
+                            <?php if ($result[24] == 1) {
                             ?>
                               <td><i class="fa fa-check" aria-hidden="true"></i></td>
                             <?php } else { ?>

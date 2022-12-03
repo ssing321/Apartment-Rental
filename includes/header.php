@@ -1,11 +1,11 @@
 <header>
   <div class="default-header">
     <div class="container">
-      
-        
+
+
       <div class="col-sm-9 col-md-10">
-      
-        
+
+
         <?php if (strlen($_SESSION['login']) == 0) {
         ?>
           <div class="login_btn"> <a href="#loginform" class="btn btn-xs uppercase" data-toggle="modal" data-dismiss="modal">Login / Register</a> </div>
@@ -13,9 +13,9 @@
 
           echo "Welcome ";
         } ?>
-      
+
       </div>
-      
+
     </div>
   </div>
 
@@ -37,8 +37,8 @@
                 // $query->bindParam(':email', $email, PDO::PARAM_STR);
                 // $query->execute();
                 $results = pg_query_params($con, $sql, array($email));
-                if (pg_num_rows($results)>0) {
-                  while($result = pg_fetch_array($results, NULL)) {
+                if (pg_num_rows($results) > 0) {
+                  while ($result = pg_fetch_array($results, NULL)) {
 
                     echo htmlentities($result[0]);
                   }

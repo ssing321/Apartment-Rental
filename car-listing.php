@@ -69,7 +69,7 @@ error_reporting(0);
               // $results = $query->fetchAll(PDO::FETCH_OBJ);
               // $cnt = $query->rowCount();
               $results = pg_query($con, $sql);
-              $cnt=pg_num_rows($results)
+              $cnt = pg_num_rows($results)
               ?>
               <p><span><?php echo htmlentities($cnt); ?> Listings</span></p>
             </div>
@@ -88,7 +88,7 @@ error_reporting(0);
                 </div>
                 <div class="product-listing-content">
                   <h5><a href="vehical-details.php?vhid=<?php echo htmlentities($result[0]); ?>"><?php echo htmlentities($result[29]); ?> , <?php echo htmlentities($result[1]); ?></a></h5>
-                  <p class="list-price">$<?php echo htmlentities($result[4]); ?> Per Month</p>
+                  <p class="list-price">$<?php echo htmlentities($result[4]); ?> Per Day</p>
                   <ul>
                     <li><i class="fa fa-bath" aria-hidden="true"></i><?php echo htmlentities($result[7]); ?> Baths</li>
                     <li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($result[6]); ?> Built/Renovated</li>
@@ -144,35 +144,8 @@ error_reporting(0);
             </div>
           </div>
 
-          <div class="sidebar_widget">
-            <div class="widget_heading">
-              <h5><i class="fa fa-car" aria-hidden="true"></i> Recently Listed Apartments</h5>
-            </div>
-            <div class="recent_addedcars">
-              <ul>
-                <?php $sql = "SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid  from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand order by id desc limit 4";
-                // $query = $dbh->prepare($sql);
-                // $query->execute();
-                // $results = $query->fetchAll(PDO::FETCH_OBJ);
-                $results = pg_query($con, $sql);
-                $cnt = 1;
-                if ($query->rowCount() > 0) {
-                  while (pg_num_rows($results) > 0) {  ?>
-
-                    <li class="gray-bg">
-                      <div class="recent_post_img"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result[0]); ?>"><img src="admin/img/vehicleimages/<?php echo htmlentities($result[8]); ?>" alt="image"></a> </div>
-                      <div class="recent_post_title"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result[0]); ?>"><?php echo htmlentities($result[28]); ?> , <?php echo htmlentities($result[1]); ?></a>
-                        <p class="widget_price">$<?php echo htmlentities($result[4]); ?> Per Month</p>
-                      </div>
-                    </li>
-                <?php }
-                } ?>
-
-              </ul>
-            </div>
-          </div>
-        </aside>
-        <!--/Side-Bar-->
+          
+        
       </div>
     </div>
   </section>
