@@ -15,7 +15,7 @@ if (strlen($_SESSION['login']) == 0) {
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="keywords" content="">
     <meta name="description" content="">
-    <title>CarForYou - Responsive Car Dealer HTML5 Template</title>
+    <title>ApartmentsForYou</title>
     <!--Bootstrap -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">
     <!--Custome Style -->
@@ -77,7 +77,7 @@ if (strlen($_SESSION['login']) == 0) {
     // $query->execute();
     // $results=$query->fetchAll(PDO::FETCH_OBJ);
     $cnt = 1;
-    $results = pg_query_params($con, $sql,array($useremail));
+    $results = pg_query_params($con, $sql, array($useremail));
     if (pg_num_rows($results) > 0) {
       while ($result = pg_fetch_array($results)) { ?>
         <section class="user_profile inner_pages">
@@ -90,8 +90,8 @@ if (strlen($_SESSION['login']) == 0) {
                 <h5><?php echo htmlentities($result[1]); ?></h5>
                 <p><?php echo htmlentities($result[6]); ?><br>
                   <?php echo htmlentities($result[7]); ?>&nbsp;<?php echo htmlentities($result[8]);
-                                                                  }
-                                                                } ?></p>
+                                                              }
+                                                            } ?></p>
               </div>
             </div>
             <div class="row">
@@ -112,8 +112,8 @@ if (strlen($_SESSION['login']) == 0) {
                         // $results = $query->fetchAll(PDO::FETCH_OBJ);
                         $cnt = 1;
                         $results = pg_query_params($con, $sql, array($useremail));
-                        if (pg_num_rows($results)>0) {
-                          while ($result= pg_fetch_array($results)) {  ?>
+                        if (pg_num_rows($results) > 0) {
+                          while ($result = pg_fetch_array($results)) {  ?>
 
                             <li>
                               <div class="vehicle_img"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result[2]); ?>""><img src=" admin/img/vehicleimages/<?php echo htmlentities($result[0]); ?>" alt="image"></a> </div>

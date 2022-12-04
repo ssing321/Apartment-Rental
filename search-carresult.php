@@ -110,12 +110,12 @@ error_reporting(0);
                 <div class="product-listing-img"><img src="admin/img/vehicleimages/<?php echo htmlentities($result[8]); ?>" class="img-responsive" alt="Image" /> </a>
                 </div>
                 <div class="product-listing-content">
-                  <h5><a href="vehical-details.php?vhid=<?php echo htmlentities($result[0]); ?>"><?php echo htmlentities($result[29]); ?> , <?php echo htmlentities($result[1]); ?></a></h5>
-                  <p class="list-price">$<?php echo htmlentities($result[4]); ?> Per Day</p>
+                  <h5><a href="vehical-details.php?vhid=<?php echo htmlentities($result[0]); ?>"><?php echo htmlentities($result[27]); ?> , <?php echo htmlentities($result[1]); ?></a></h5>
+                  <p class="list-price">$<?php echo htmlentities($result[4]); ?> Per Month</p>
                   <ul>
-                    <li><i class="fa fa-user" aria-hidden="true"></i><?php echo htmlentities($result[7]); ?> seats</li>
+                    <li><i class="fa fa-bath" aria-hidden="true"></i><?php echo htmlentities($result[7]); ?> Baths</li>
                     <li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($result[6]); ?> model</li>
-                    <li><i class="fa fa-car" aria-hidden="true"></i><?php echo htmlentities($result[5]); ?></li>
+                    <li><i class="fa fa-bed" aria-hidden="true"></i><?php echo htmlentities($result[5]); ?> Bed Room</li>
                   </ul>
                   <a href="vehical-details.php?vhid=<?php echo htmlentities($result[0]); ?>" class="btn">View Details <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
                 </div>
@@ -134,7 +134,7 @@ error_reporting(0);
               <form action="search-carresult.php" method="post">
                 <div class="form-group select">
                   <select class="form-control" name="brand">
-                    <option>Select Brand</option>
+                    <option>Select Community</option>
 
                     <?php $sql = "SELECT * from  tblbrands ";
                     // $query = $dbh->prepare($sql);

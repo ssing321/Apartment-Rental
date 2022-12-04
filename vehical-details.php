@@ -9,7 +9,7 @@ if (isset($_POST['submit'])) {
   $useremail = $_SESSION['login'];
   $status = 0;
   $vhid = $_GET['vhid'];
-  $sql = "INSERT INTO  tblbooking(userEmail,VehicleId,FromDate,ToDate,message,Status) VALUES($useremail,$vhid,$fromdate,$todate,$message,$status)";
+  $sql = "INSERT INTO  tblbooking(userEmail,VehicleId,FromDate,ToDate,message,Status) VALUES($1,$2,$3,$4,$5,$6)";
   // $query = $dbh->prepare($sql);
   // $query->bindParam(':useremail', $useremail, PDO::PARAM_STR);
   // $query->bindParam(':vhid', $vhid, PDO::PARAM_STR);
@@ -19,8 +19,7 @@ if (isset($_POST['submit'])) {
   // $query->bindParam(':status', $status, PDO::PARAM_STR);
   // $query->execute();
   $results = pg_query_params($con, $sql, array($useremail, $vhid,$fromdate,$todate,$message,$status));
-  $result = pg_fetch_array($results);
-  if ($result) {
+  if ($results) {
     echo "<script>alert('Booking successfull.');</script>";
   } else {
     echo "<script>alert('Something went wrong. Please try again');</script>";

@@ -71,7 +71,7 @@ error_reporting(0);
               $results = pg_query($con, $sql);
               $cnt = pg_num_rows($results)
               ?>
-              <p><span><?php echo htmlentities($cnt); ?> Listings</span></p>
+              <p><span> Listings</span></p>
             </div>
           </div>
 
