@@ -131,12 +131,12 @@ if (strlen($_SESSION['alogin']) == 0) {
 														<td><?php echo htmlentities($cnt); ?></td>
 														<td><?php echo htmlentities($result[1]); ?></td>
 														<td><?php echo htmlentities($result[2]); ?></td>
-														<td><?php echo htmlentities($result[3]); ?></td>
 														<td><?php echo htmlentities($result[4]); ?></td>
 														<td><?php echo htmlentities($result[5]); ?></td>
 														<td><?php echo htmlentities($result[6]); ?></td>
 														<td><?php echo htmlentities($result[7]); ?></td>
 														<td><?php echo htmlentities($result[8]); ?></td>
+														<td><?php echo htmlentities($result[9]); ?></td>
 													</tr>
 											<?php $cnt = $cnt + 1;
 												}

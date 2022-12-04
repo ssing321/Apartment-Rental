@@ -1,6 +1,6 @@
 <?php
 session_start();
-error_reporting(0);
+//error_reporting(0);
 include('includes/config.php');
 if (strlen($_SESSION['alogin']) == 0) {
 	header('location:index.php');
@@ -99,7 +99,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 													<div class="stat-panel text-center">
 														<?php
 														$sql2 = "SELECT id from tblbooking ";
-														$results2 = pg_query_params($con, $sql2);
+														$results2 = pg_query($con, $sql2);
 														// $query2 = $dbh->prepare($sql2);
 														// $query2->execute();
 														// $results2 = $query2->fetchAll(PDO::FETCH_OBJ);
@@ -120,14 +120,14 @@ if (strlen($_SESSION['alogin']) == 0) {
 													<div class="stat-panel text-center">
 														<?php
 														$sql3 = "SELECT id from tblbrands ";
-														$results3 = pg_query_params($con, $sql3);
+														$results3 = pg_query($con, $sql3);
 														// $query3 = $dbh->prepare($sql3);
 														// $query3->execute();
 														// $results3 = $query3->fetchAll(PDO::FETCH_OBJ);
 														// $brands = $query3->rowCount();
-														$brands = pg_num_rows($results3);
+														$brands3 = pg_num_rows($results3);
 														?>
-														<div class="stat-panel-number h1 "><?php echo htmlentities($brands); ?></div>
+														<div class="stat-panel-number h1 "><?php echo htmlentities($brands3); ?></div>
 														<div class="stat-panel-title text-uppercase">Listed Communities</div>
 													</div>
 												</div>

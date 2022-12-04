@@ -140,7 +140,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 											// $results = $query->fetchAll(PDO::FETCH_OBJ);
 											$results = pg_query($con, $sql);
 											$cnt = 1;
-											if ($query->rowCount() > 0) {
+											if (pg_num_rows($results) > 0) {
 												while ($result = pg_fetch_array($results)) {		?>
 													<tr>
 														<td><?php echo htmlentities($cnt); ?></td>
