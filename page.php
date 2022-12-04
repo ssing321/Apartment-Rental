@@ -12,7 +12,7 @@ include('includes/config.php');
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="keywords" content="">
 <meta name="description" content="">
-<title>Car Rental Portal | Page details</title>
+<title>Apartment Leasing Portal | Page details</title>
 <!--Bootstrap -->
 <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">
 <!--Custome Style -->
@@ -39,24 +39,25 @@ include('includes/config.php');
                       <?php 
 $pagetype=$_GET['type'];
 $sql = "SELECT type,detail,PageName from tblpages where type=:pagetype";
-$query = $dbh -> prepare($sql);
-$query->bindParam(':pagetype',$pagetype,PDO::PARAM_STR);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
+// $query = $dbh -> prepare($sql);
+// $query->bindParam(':pagetype',$pagetype,PDO::PARAM_STR);
+// $query->execute();
+// $results=$query->fetchAll(PDO::FETCH_OBJ);
+$results = pg_query_params($con, $sql, array($pagetype));
 $cnt=1;
-if($query->rowCount() > 0)
+if(pg_num_rows($results)>0)
 {
-foreach($results as $result)
+while($result = pg_fetch_array($results))
 { ?>
 <section class="page-header aboutus_page">
   <div class="container">
     <div class="page-header_wrap">
       <div class="page-heading">
-        <h1><?php   echo htmlentities($result->PageName); ?></h1>
+        <h1><?php   echo htmlentities($result[2]); ?></h1>
       </div>
       <ul class="coustom-breadcrumb">
         <li><a href="#">Home</a></li>
-        <li><?php   echo htmlentities($result->PageName); ?></li>
+        <li><?php   echo htmlentities($result[2]); ?></li>
       </ul>
     </div>
   </div>
@@ -68,8 +69,8 @@ foreach($results as $result)
     <div class="section-header text-center">
 
 
-      <h2><?php   echo htmlentities($result->PageName); ?></h2>
-      <p><?php  echo $result->detail; ?> </p>
+      <h2><?php   echo htmlentities($result[2]); ?></h2>
+      <p><?php  echo $result[1]; ?> </p>
     </div>
    <?php } }?>
   </div>

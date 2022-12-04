@@ -1,11 +1,11 @@
 <header>
   <div class="default-header">
     <div class="container">
-      
-        
+
+
       <div class="col-sm-9 col-md-10">
-      
-        
+
+
         <?php if (strlen($_SESSION['login']) == 0) {
         ?>
           <div class="login_btn"> <a href="#loginform" class="btn btn-xs uppercase" data-toggle="modal" data-dismiss="modal">Login / Register</a> </div>
@@ -13,9 +13,9 @@
 
           echo "Welcome ";
         } ?>
-      
+
       </div>
-      
+
     </div>
   </div>
 
@@ -31,15 +31,16 @@
             <li class="dropdown"> <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle" aria-hidden="true"></i>
                 <?php
                 $email = $_SESSION['login'];
-                $sql = "SELECT FullName FROM tblusers WHERE EmailId=:email ";
-                $query = $dbh->prepare($sql);
-                $query->bindParam(':email', $email, PDO::PARAM_STR);
-                $query->execute();
-                $results = $query->fetchAll(PDO::FETCH_OBJ);
-                if ($query->rowCount() > 0) {
-                  foreach ($results as $result) {
+                $sql = 'SELECT FullName FROM tblusers WHERE EmailId=$1';
+                //$rs = pg_query($con, $query)
+                // $query = $dbh->prepare($sql);
+                // $query->bindParam(':email', $email, PDO::PARAM_STR);
+                // $query->execute();
+                $results = pg_query_params($con, $sql, array($email));
+                if (pg_num_rows($results) > 0) {
+                  while ($result = pg_fetch_array($results, NULL)) {
 
-                    echo htmlentities($result->FullName);
+                    echo htmlentities($result[0]);
                   }
                 } ?>
                 <i class="fa fa-angle-down" aria-hidden="true"></i></a>
@@ -48,8 +49,6 @@
                   <li><a href="profile.php">Profile Settings</a></li>
                   <li><a href="update-password.php">Update Password</a></li>
                   <li><a href="my-booking.php">My Booking</a></li>
-                  <li><a href="post-testimonial.php">Post a Testimonial</a></li>
-                  <li><a href="my-testimonials.php">My Testimonial</a></li>
                   <li><a href="logout.php">Sign Out</a></li>
                 <?php } ?>
               </ul>
