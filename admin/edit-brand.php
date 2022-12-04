@@ -5,16 +5,10 @@ include('includes/config.php');
 if (strlen($_SESSION['alogin']) == 0) {
 	header('location:index.php');
 } else {
-	// Code for change password	
 	if (isset($_POST['submit'])) {
 		$brand = $_POST['brand'];
 		$id = $_GET['id'];
 		$sql = "update  tblbrands set BrandName=$1 where id=$2";
-		// $query = $dbh->prepare($sql);
-		// $query->bindParam(':brand',$brand,PDO::PARAM_STR);
-		// $query->bindParam(':id',$id,PDO::PARAM_STR);
-		// $query->execute();
-		// $lastInsertId = $dbh->lastInsertId();
 
 		$results = pg_query_params($con, $sql, array($brand, $id));
 
@@ -99,10 +93,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<?php
 												$id = $_GET['id'];
 												$ret = "select * from tblbrands where id=$1";
-												// $query= $dbh -> prepare($ret);
-												// $query->bindParam(':id',$id, PDO::PARAM_STR);
-												// $query-> execute();
-												// $results = $query -> fetchAll(PDO::FETCH_OBJ);
 												$results = pg_query_params($con, $ret, array($id));
 												$cnt = 1;
 												if (pg_num_rows($results) > 0) {

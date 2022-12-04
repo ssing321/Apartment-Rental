@@ -76,16 +76,10 @@ error_reporting(0);
           <div class="result-sorting-wrapper">
             <div class="sorting-count">
               <?php
-              //Query for Listing count
               $brand = $_POST['brand'];
               $fueltype = $_POST['fueltype'];
               $sql = "SELECT id from tblvehicles where tblvehicles.VehiclesBrand=$1 and tblvehicles.FuelType=$2";
-              // $query = $dbh -> prepare($sql);
-              // $query -> bindParam(':brand',$brand, PDO::PARAM_STR);
-              // $query -> bindParam(':fueltype',$fueltype, PDO::PARAM_STR);
-              // $query->execute();
-              // $results=$query->fetchAll(PDO::FETCH_OBJ);
-              // $cnt=$query->rowCount();
+
               $results = pg_query_params($con, $sql, array($brand, $fueltype));
               $cnt = pg_num_rows($results);
               ?>
@@ -96,11 +90,7 @@ error_reporting(0);
           <?php
 
           $sql = "SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid  from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand where tblvehicles.VehiclesBrand=$1 and tblvehicles.FuelType=$2";
-          // $query = $dbh -> prepare($sql);
-          // $query -> bindParam(':brand',$brand, PDO::PARAM_STR);
-          // $query -> bindParam(':fueltype',$fueltype, PDO::PARAM_STR);
-          // $query->execute();
-          // $results=$query->fetchAll(PDO::FETCH_OBJ);
+
           $results = pg_query_params($con, $sql, array($brand, $fueltype));
           $cnt = pg_num_rows($results);
           $cnt = 1;
@@ -137,9 +127,6 @@ error_reporting(0);
                     <option>Select Community</option>
 
                     <?php $sql = "SELECT * from  tblbrands ";
-                    // $query = $dbh->prepare($sql);
-                    // $query->execute();
-                    // $results = $query->fetchAll(PDO::FETCH_OBJ);
                     $results = pg_query($con, $sql);
                     $cnt = 1;
                     if (pg_num_rows($results)> 0) {

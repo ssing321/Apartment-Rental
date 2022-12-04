@@ -10,18 +10,9 @@ if (strlen($_SESSION['login']) == 0) {
     $newpassword = md5($_POST['newpassword']);
     $email = $_SESSION['login'];
     $sql = "SELECT Password FROM tblusers WHERE EmailId=$1 and Password=$2";
-    // $query = $dbh->prepare($sql);
-    // $query->bindParam(':email', $email, PDO::PARAM_STR);
-    // $query->bindParam(':password', $password, PDO::PARAM_STR);
-    // $query->execute();
-    // $results = $query->fetchAll(PDO::FETCH_OBJ);
     $results = pg_query_params($con, $sql, array($email, $password));
     if (pg_num_rows($results)>0) {
       $query = 'update tblusers set Password=$1 where EmailId=$2';
-      // $chngpwd1 = $dbh->prepare($con);
-      // $chngpwd1->bindParam(':email', $email, PDO::PARAM_STR);
-      // $chngpwd1->bindParam(':newpassword', $newpassword, PDO::PARAM_STR);
-      // $chngpwd1->execute();
       $results = pg_query_params($con, $sql, array($newpassword,$email));
       $msg = "Your Password succesfully changed";
     } else {

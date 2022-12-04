@@ -11,10 +11,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$id = intval($_GET['imgid']);
 		move_uploaded_file($_FILES["img3"]["tmp_name"], "img/vehicleimages/" . $_FILES["img3"]["name"]);
 		$sql = "update tblvehicles set Vimage3=$1 where id=$2";
-		// $query = $dbh->prepare($sql);
-		// $query->bindParam(':vimage',$vimage,PDO::PARAM_STR);
-		// $query->bindParam(':id',$id,PDO::PARAM_STR);
-		// $query->execute();
 		$results = pg_query_params($con, $sql, array($vimage, $id));
 		$msg = "Image updated successfully";
 	}
@@ -101,10 +97,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 													<?php
 													$id = intval($_GET['imgid']);
 													$sql = "SELECT Vimage3 from tblvehicles where tblvehicles.id=$1";
-													// $query = $dbh->prepare($sql);
-													// $query->bindParam(':id', $id, PDO::PARAM_STR);
-													// $query->execute();
-													// $results = $query->fetchAll(PDO::FETCH_OBJ);
 													$results = pg_query_params($con, $sql, array($id));
 													$cnt = 1;
 													if (pg_num_rows($results) > 0) {

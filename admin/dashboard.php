@@ -59,10 +59,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 													<div class="stat-panel text-center">
 														<?php
 														$sql = "SELECT id from tblusers ";
-														// $query = $dbh->prepare($sql);
-														// $query->execute();
-														// $results = $query->fetchAll(PDO::FETCH_OBJ);
-														// $regusers = $query->rowCount();
 														$results = pg_query($con, $sql);
 														$regusers = pg_num_rows($results);
 														?>
@@ -80,10 +76,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 														<?php
 														$sql1 = "SELECT id from tblvehicles ";
 														$results = pg_query($con, $sql1);
-														// $query1 = $dbh->prepare($sql1);;
-														// $query1->execute();
-														// $results1 = $query1->fetchAll(PDO::FETCH_OBJ);
-														// $totalvehicle = $query1->rowCount();
 														$totalvehicle =pg_num_rows($results);
 														?>
 														<div class="stat-panel-number h1 "><?php echo htmlentities($totalvehicle); ?></div>
@@ -100,10 +92,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 														<?php
 														$sql2 = "SELECT id from tblbooking ";
 														$results2 = pg_query($con, $sql2);
-														// $query2 = $dbh->prepare($sql2);
-														// $query2->execute();
-														// $results2 = $query2->fetchAll(PDO::FETCH_OBJ);
-														// $bookings = $query2->rowCount();
 														$bookings = pg_num_rows($results2);
 														?>
 
@@ -121,10 +109,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 														<?php
 														$sql3 = "SELECT id from tblbrands ";
 														$results3 = pg_query($con, $sql3);
-														// $query3 = $dbh->prepare($sql3);
-														// $query3->execute();
-														// $results3 = $query3->fetchAll(PDO::FETCH_OBJ);
-														// $brands = $query3->rowCount();
 														$brands3 = pg_num_rows($results3);
 														?>
 														<div class="stat-panel-number h1 "><?php echo htmlentities($brands3); ?></div>

@@ -9,10 +9,6 @@ if(!empty($_POST["emailid"])) {
 	}
 	else {
 		$sql ="SELECT EmailId FROM tblusers WHERE EmailId=$1";
-// $query= $dbh -> prepare($sql);
-// $query-> bindParam(':email', $email, PDO::PARAM_STR);
-// $query-> execute();
-// $results = $query -> fetchAll(PDO::FETCH_OBJ);
 $results = pg_query_params($con, $sql, array($email));
 $cnt=1;
 if(pg_num_rows($results)>0)

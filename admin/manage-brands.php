@@ -8,9 +8,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 	if (isset($_GET['del'])) {
 		$id = $_GET['del'];
 		$sql = "delete from tblbrands  WHERE id=$1";
-		// $query = $dbh->prepare($sql);
-		// $query -> bindParam(':id',$id, PDO::PARAM_STR);
-		// $query -> execute();
 		$results = pg_query_params($con, $sql, array($id));
 		$msg = "Page data updated  successfully";
 	}

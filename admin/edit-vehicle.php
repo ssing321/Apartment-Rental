@@ -29,28 +29,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$id = intval($_GET['id']);
 
 		$sql = "update tblvehicles set VehiclesTitle=$1,VehiclesBrand=$2,VehiclesOverview=$3,PricePerDay=$4,FuelType=$5,ModelYear=$6,SeatingCapacity=$7,AirConditioner=$8,PowerDoorLocks=$9,AntiLockBrakingSystem=$10,BrakeAssist=$11,PowerSteering=$12,DriverAirbag=$13,PassengerAirbag=$14,PowerWindows=$15,CDPlayer=$16,CentralLocking=$17,CrashSensor=$18,LeatherSeats=$19 where id=$20 ";
-		// $query = $dbh->prepare($sql);
-		// $query->bindParam(':vehicletitle',$vehicletitle,PDO::PARAM_STR);
-		// $query->bindParam(':brand',$brand,PDO::PARAM_STR);
-		// $query->bindParam(':vehicleoverview',$vehicleoverview,PDO::PARAM_STR);
-		// $query->bindParam(':priceperday',$priceperday,PDO::PARAM_STR);
-		// $query->bindParam(':fueltype',$fueltype,PDO::PARAM_STR);
-		// $query->bindParam(':modelyear',$modelyear,PDO::PARAM_STR);
-		// $query->bindParam(':seatingcapacity',$seatingcapacity,PDO::PARAM_STR);
-		// $query->bindParam(':airconditioner',$airconditioner,PDO::PARAM_STR);
-		// $query->bindParam(':powerdoorlocks',$powerdoorlocks,PDO::PARAM_STR);
-		// $query->bindParam(':antilockbrakingsys',$antilockbrakingsys,PDO::PARAM_STR);
-		// $query->bindParam(':brakeassist',$brakeassist,PDO::PARAM_STR);
-		// $query->bindParam(':powersteering',$powersteering,PDO::PARAM_STR);
-		// $query->bindParam(':driverairbag',$driverairbag,PDO::PARAM_STR);
-		// $query->bindParam(':passengerairbag',$passengerairbag,PDO::PARAM_STR);
-		// $query->bindParam(':powerwindow',$powerwindow,PDO::PARAM_STR);
-		// $query->bindParam(':cdplayer',$cdplayer,PDO::PARAM_STR);
-		// $query->bindParam(':centrallocking',$centrallocking,PDO::PARAM_STR);
-		// $query->bindParam(':crashcensor',$crashcensor,PDO::PARAM_STR);
-		// $query->bindParam(':leatherseats',$leatherseats,PDO::PARAM_STR);
-		// $query->bindParam(':id',$id,PDO::PARAM_STR);
-		// $query->execute();
 		$results = pg_query_params($con, $sql, array($vehicletitle, $brand, $vehicleoverview, $priceperday, $fueltype, $modelyear, $seatingcapacity, $airconditioner, $powerdoorlocks, $antilockbrakingsys, $brakeassist, $powersteering, $driverairbag, $passengerairbag, $powerwindow, $cdplayer, $centrallocking, $crashcensor, $leatherseats));
 		$msg = "Data updated successfully";
 	}
@@ -128,10 +106,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 											<?php
 											$id = intval($_GET['id']);
 											$sql = "SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand where tblvehicles.id=$1";
-											// $query = $dbh -> prepare($sql);
-											// $query-> bindParam(':id', $id, PDO::PARAM_STR);
-											// $query->execute();
-											// $results=$query->fetchAll(PDO::FETCH_OBJ);
 											$results = pg_query_params($con, $sql, array($id));
 											$cnt = 1;
 											if (pg_num_rows($results) > 0) {

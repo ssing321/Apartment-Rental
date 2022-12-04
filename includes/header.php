@@ -32,10 +32,6 @@
                 <?php
                 $email = $_SESSION['login'];
                 $sql = 'SELECT FullName FROM tblusers WHERE EmailId=$1';
-                //$rs = pg_query($con, $query)
-                // $query = $dbh->prepare($sql);
-                // $query->bindParam(':email', $email, PDO::PARAM_STR);
-                // $query->execute();
                 $results = pg_query_params($con, $sql, array($email));
                 if (pg_num_rows($results) > 0) {
                   while ($result = pg_fetch_array($results, NULL)) {
@@ -55,13 +51,6 @@
             </li>
           </ul>
         </div>
-        <!-- <div class="header_search">
-          <div id="search_toggle"><i class="fa fa-search" aria-hidden="true"></i></div>
-          <form action="search.php" method="post" id="header-search-form">
-            <input type="text" placeholder="Search..." name="searchdata" class="form-control" required="true">
-            <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-          </form>
-        </div> -->
       </div>
       <div class="collapse navbar-collapse" id="navigation">
         <ul class="nav navbar-nav">
