@@ -121,12 +121,12 @@ if (strlen($_SESSION['login']) == 0) {
                                 <h6><a href="vehical-details.php?vhid=<?php echo htmlentities($result[0]); ?>""> <?php echo htmlentities($result[3]); ?> , <?php echo htmlentities($result[1]); ?></a></h6>
                   <p><b>From Date:</b> <?php echo htmlentities($result[4]); ?><br /> <b>To Date:</b> <?php echo htmlentities($result[5]); ?></p>
                 </div>
-                <?php if ($result['Status'] == 1) { ?>
+                <?php if ($result[7] == 1) { ?>
                 <div class=" vehicle_status"> <a href="#" class="btn outline btn-xs active-btn">Confirmed</a>
                                     <div class="clearfix"></div>
                               </div>
 
-                            <?php } else if ($result['Status'] == 2) { ?>
+                            <?php } else if ($result[7] == 2) { ?>
                               <div class="vehicle_status"> <a href="#" class="btn outline btn-xs">Cancelled</a>
                                 <div class="clearfix"></div>
                               </div>

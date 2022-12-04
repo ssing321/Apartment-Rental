@@ -182,7 +182,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 												</div>
 
 												<div class="form-group">
-													<label class="col-sm-2 control-label">Rent per day(in USD)<span style="color:red">*</span></label>
+													<label class="col-sm-2 control-label">Rent Per Month(in USD)<span style="color:red">*</span></label>
 													<div class="col-sm-4">
 														<input type="text" name="priceperday" class="form-control" required>
 													</div>

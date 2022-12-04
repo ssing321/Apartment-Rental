@@ -7,13 +7,13 @@ if (strlen($_SESSION['alogin']) == 0) {
 } else {
 	if (isset($_REQUEST['eid'])) {
 		$eid = intval($_GET['eid']);
-		$status = "2";
-		$sql = "UPDATE tblbooking SET Status=$1 WHERE  id=$2";
+		$status = 2;
+		$sql = "UPDATE tblbooking SET status=$1 WHERE  id=$2";
 		// $query = $dbh->prepare($sql);
 		// $query->bindParam(':status', $status, PDO::PARAM_STR);
 		// $query->bindParam(':eid', $eid, PDO::PARAM_STR);
 		// $query->execute();
-		$results = pg_query_params($con, $sql, array($eid, $status));
+		$results = pg_query_params($con, $sql, array($status, $eid));
 
 		$msg = "Booking Successfully Cancelled";
 	}
@@ -28,7 +28,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 		// $query->bindParam(':status', $status, PDO::PARAM_STR);
 		// $query->bindParam(':aeid', $aeid, PDO::PARAM_STR);
 		// $query->execute();
-		$results = pg_query_params($con, $sql, array($aeid, $status));
+		$results = pg_query_params($con, $sql, array($status, $aeid));
 
 		$msg = "Booking Successfully Confirmed";
 	}
@@ -159,10 +159,10 @@ if (strlen($_SESSION['alogin']) == 0) {
 															}
 															?></td>
 														<td><?php echo htmlentities($result[8]); ?></td>
-														<td><a href="manage-bookings.php?aeid=<?php echo htmlentities($result[6]); ?>" onclick="return confirm('Do you really want to Confirm this booking')"> Confirm</a> /
+														<td><a href="manage-bookings.php?aeid=<?php echo htmlentities($result[9]); ?>" onclick="return confirm('Do you really want to Confirm this booking')"> Confirm</a> /
 
 
-															<a href="manage-bookings.php?eid=<?php echo htmlentities($result[6]); ?>" onclick="return confirm('Do you really want to Cancel this Booking')"> Cancel</a>
+															<a href="manage-bookings.php?eid=<?php echo htmlentities($result[9]); ?>" onclick="return confirm('Do you really want to Cancel this Booking')"> Cancel</a>
 														</td>
 
 													</tr>

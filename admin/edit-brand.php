@@ -9,14 +9,14 @@ if (strlen($_SESSION['alogin']) == 0) {
 	if (isset($_POST['submit'])) {
 		$brand = $_POST['brand'];
 		$id = $_GET['id'];
-		$sql = "update  tblbrands set BrandName=:brand where id=$1";
+		$sql = "update  tblbrands set BrandName=$1 where id=$2";
 		// $query = $dbh->prepare($sql);
 		// $query->bindParam(':brand',$brand,PDO::PARAM_STR);
 		// $query->bindParam(':id',$id,PDO::PARAM_STR);
 		// $query->execute();
 		// $lastInsertId = $dbh->lastInsertId();
 
-		$results = pg_query_params($con, $sql, array($brand));
+		$results = pg_query_params($con, $sql, array($brand, $id));
 
 		$msg = "Brand updted successfully";
 	}
