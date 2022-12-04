@@ -39,34 +39,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 		$sql = "INSERT INTO tblvehicles(VehiclesTitle,VehiclesBrand,VehiclesOverview,PricePerDay,FuelType,ModelYear,SeatingCapacity,Vimage1,Vimage2,Vimage3,Vimage4,Vimage5,AirConditioner,PowerDoorLocks,AntiLockBrakingSystem,BrakeAssist,PowerSteering,DriverAirbag,PassengerAirbag,PowerWindows,CDPlayer,CentralLocking,CrashSensor,LeatherSeats) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24)";
 		$results = pg_query_params($con, $sql, array($vehicletitle, $brand, $vehicleoverview, $priceperday, $fueltype, $modelyear, $seatingcapacity, $vimage1, $vimage2, $vimage3, $vimage4, $vimage5, $airconditioner, $powerdoorlocks,$antilockbrakingsys, $brakeassist,$powersteering, $driverairbag, $passengerairbag, $powerwindow, $cdplayer, $centrallocking, $crashcensor, $leatherseats));
-		// $query = $dbh->prepare($sql);
-		// $query->bindParam(':vehicletitle',$vehicletitle,PDO::PARAM_STR);
-		// $query->bindParam(':brand',$brand,PDO::PARAM_STR);
-		// $query->bindParam(':vehicleoverview',$vehicleoverview,PDO::PARAM_STR);
-		// $query->bindParam(':priceperday',$priceperday,PDO::PARAM_STR);
-		// $query->bindParam(':fueltype',$fueltype,PDO::PARAM_STR);
-		// $query->bindParam(':modelyear',$modelyear,PDO::PARAM_STR);
-		// $query->bindParam(':seatingcapacity',$seatingcapacity,PDO::PARAM_STR);
-		// $query->bindParam(':vimage1',$vimage1,PDO::PARAM_STR);
-		// $query->bindParam(':vimage2',$vimage2,PDO::PARAM_STR);
-		// $query->bindParam(':vimage3',$vimage3,PDO::PARAM_STR);
-		// $query->bindParam(':vimage4',$vimage4,PDO::PARAM_STR);
-		// $query->bindParam(':vimage5',$vimage5,PDO::PARAM_STR);
-		// $query->bindParam(':airconditioner',$airconditioner,PDO::PARAM_STR);
-		// $query->bindParam(':powerdoorlocks',$powerdoorlocks,PDO::PARAM_STR);
-		// $query->bindParam(':antilockbrakingsys',$antilockbrakingsys,PDO::PARAM_STR);
-		// $query->bindParam(':brakeassist',$brakeassist,PDO::PARAM_STR);
-		// $query->bindParam(':powersteering',$powersteering,PDO::PARAM_STR);
-		// $query->bindParam(':driverairbag',$driverairbag,PDO::PARAM_STR);
-		// $query->bindParam(':passengerairbag',$passengerairbag,PDO::PARAM_STR);
-		// $query->bindParam(':powerwindow',$powerwindow,PDO::PARAM_STR);
-		// $query->bindParam(':cdplayer',$cdplayer,PDO::PARAM_STR);
-		// $query->bindParam(':centrallocking',$centrallocking,PDO::PARAM_STR);
-		// $query->bindParam(':crashcensor',$crashcensor,PDO::PARAM_STR);
-		// $query->bindParam(':leatherseats',$leatherseats,PDO::PARAM_STR);
-		// $query->execute();
-
-		// $lastInsertId = $dbh->lastInsertId();
 		if ($results) {
 			$msg = "Apartment posted successfully";
 		} else {

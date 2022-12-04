@@ -9,10 +9,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 	if (isset($_POST['submit'])) {
 		$brand = $_POST['brand'];
 		$sql = "INSERT INTO  tblbrands(BrandName) VALUES($1)";
-		// $query = $dbh->prepare($sql);
-		// $query->bindParam(':brand', $brand, PDO::PARAM_STR);
-		// $query->execute();
-		// $lastInsertId = $dbh->lastInsertId();
 		$results = pg_query_params($con, $sql, array($brand));
 		if ($results) {
 			$msg = "Community Created successfully";

@@ -9,10 +9,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$eid = intval($_GET['eid']);
 		$status = 2;
 		$sql = "UPDATE tblbooking SET status=$1 WHERE  id=$2";
-		// $query = $dbh->prepare($sql);
-		// $query->bindParam(':status', $status, PDO::PARAM_STR);
-		// $query->bindParam(':eid', $eid, PDO::PARAM_STR);
-		// $query->execute();
 		$results = pg_query_params($con, $sql, array($status, $eid));
 
 		$msg = "Booking Successfully Cancelled";
@@ -24,10 +20,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$status = 1;
 
 		$sql = "UPDATE tblbooking SET Status=$1 WHERE  id=$2";
-		// $query = $dbh->prepare($sql);
-		// $query->bindParam(':status', $status, PDO::PARAM_STR);
-		// $query->bindParam(':aeid', $aeid, PDO::PARAM_STR);
-		// $query->execute();
 		$results = pg_query_params($con, $sql, array($status, $aeid));
 
 		$msg = "Booking Successfully Confirmed";
@@ -135,9 +127,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 										<tbody>
 
 											<?php $sql = "SELECT tblusers.FullName,tblbrands.BrandName,tblvehicles.VehiclesTitle,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.VehicleId as vid,tblbooking.Status,tblbooking.PostingDate,tblbooking.id  from tblbooking join tblvehicles on tblvehicles.id=tblbooking.VehicleId join tblusers on tblusers.EmailId=tblbooking.userEmail join tblbrands on tblvehicles.VehiclesBrand=tblbrands.id  ";
-											// $query = $dbh->prepare($sql);
-											// $query->execute();
-											// $results = $query->fetchAll(PDO::FETCH_OBJ);
 											$results = pg_query($con, $sql);
 											$cnt = 1;
 											if (pg_num_rows($results) > 0) {

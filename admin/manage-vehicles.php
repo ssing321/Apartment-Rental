@@ -10,10 +10,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$delid = intval($_GET['del']);
 		$sql = "delete from tblvehicles  WHERE  id=$1";
 		$results = pg_query_params($con, $sql, array($delid));
-		// $sql = "delete from tblvehicles  WHERE  id=:delid";
-		// $query = $dbh->prepare($sql);
-		// $query -> bindParam(':delid',$delid, PDO::PARAM_STR);
-		// $query -> execute();
 		$msg = "Apartment record deleted successfully";
 	}
 
@@ -116,9 +112,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 										<tbody>
 
 											<?php $sql = "SELECT tblvehicles.VehiclesTitle,tblbrands.BrandName,tblvehicles.PricePerDay,tblvehicles.FuelType,tblvehicles.ModelYear,tblvehicles.id from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand";
-											// $query = $dbh->prepare($sql);
-											// $query->execute();
-											// $results = $query->fetchAll(PDO::FETCH_OBJ);
 											$results = pg_query($con, $sql);
 											$cnt = 1;
 											if (pg_num_rows($results)>0) {

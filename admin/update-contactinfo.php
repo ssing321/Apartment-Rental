@@ -12,11 +12,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$contactno = $_POST['contactno'];
 		$sql = "update tblcontactusinfo set Address=$1,EmailId=$2,ContactNo=$3";
 		$results = pg_query_params($con, $sql, array($address, $email, $contactno));
-		// $query = $dbh->prepare($sql);
-		// $query->bindParam(':address',$address,PDO::PARAM_STR);
-		// $query->bindParam(':email',$email,PDO::PARAM_STR);
-		// $query->bindParam(':contactno',$contactno,PDO::PARAM_STR);
-		// $query->execute();
 		$msg = "Info Updateed successfully";
 	}
 ?>
@@ -95,9 +90,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 												<?php if ($error) { ?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } else if ($msg) { ?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php } ?>
 												<?php $sql = "SELECT * from  tblcontactusinfo ";
-												// $query = $dbh->prepare($sql);
-												// $query->execute();
-												// $results = $query->fetchAll(PDO::FETCH_OBJ);
 												$results = pg_query($con, $sql);
 												$cnt = 1;
 												if (pg_num_rows($results) > 0) {

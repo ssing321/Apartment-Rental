@@ -7,13 +7,6 @@ $email=$_POST['emailid'];
 $mobile=$_POST['mobileno'];
 $password=md5($_POST['password']); 
 $sql="INSERT INTO  tblusers(FullName,EmailId,ContactNo,Password) VALUES($1,$2,$3,$4)";
-// $query = $dbh->prepare($sql);
-// $query->bindParam(':fname',$fname,PDO::PARAM_STR);
-// $query->bindParam(':email',$email,PDO::PARAM_STR);
-// $query->bindParam(':mobile',$mobile,PDO::PARAM_STR);
-// $query->bindParam(':password',$password,PDO::PARAM_STR);
-// $query->execute();
-// $lastInsertId = $dbh->lastInsertId();
 $results = pg_query_params($con, $sql, array($fname, $email, $mobile, $password));
 if($results)
 {

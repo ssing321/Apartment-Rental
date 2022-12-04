@@ -62,12 +62,7 @@ error_reporting(0);
           <div class="result-sorting-wrapper">
             <div class="sorting-count">
               <?php
-              //Query for Listing count
               $sql = "SELECT id from tblvehicles";
-              // $query = $dbh->prepare($sql);
-              // $query->execute();
-              // $results = $query->fetchAll(PDO::FETCH_OBJ);
-              // $cnt = $query->rowCount();
               $results = pg_query($con, $sql);
               $cnt = pg_num_rows($results)
               ?>
@@ -76,9 +71,6 @@ error_reporting(0);
           </div>
 
           <?php $sql = "SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid  from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand";
-          // $query = $dbh->prepare($sql);
-          // $query->execute();
-          // $results = $query->fetchAll(PDO::FETCH_OBJ);
           $results = pg_query($con, $sql);
           $cnt = 1;
           if (pg_num_rows($results) > 0) {

@@ -10,14 +10,6 @@ if (isset($_POST['submit'])) {
   $status = 0;
   $vhid = $_GET['vhid'];
   $sql = "INSERT INTO  tblbooking(userEmail,VehicleId,FromDate,ToDate,message,Status) VALUES($1,$2,$3,$4,$5,$6)";
-  // $query = $dbh->prepare($sql);
-  // $query->bindParam(':useremail', $useremail, PDO::PARAM_STR);
-  // $query->bindParam(':vhid', $vhid, PDO::PARAM_STR);
-  // $query->bindParam(':fromdate', $fromdate, PDO::PARAM_STR);
-  // $query->bindParam(':todate', $todate, PDO::PARAM_STR);
-  // $query->bindParam(':message', $message, PDO::PARAM_STR);
-  // $query->bindParam(':status', $status, PDO::PARAM_STR);
-  // $query->execute();
   $results = pg_query_params($con, $sql, array($useremail, $vhid,$fromdate,$todate,$message,$status));
   if ($results) {
     echo "<script>alert('Booking successfull.');</script>";
@@ -72,10 +64,7 @@ if (isset($_POST['submit'])) {
   <?php
   $vhid = intval($_GET['vhid']);
   $sql = "SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid  from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand where tblvehicles.id=$1";
-  // $query = $dbh->prepare($sql);
-  // $query->bindParam(':vhid', $vhid, PDO::PARAM_STR);
-  // $query->execute();
-  // $results = $query->fetchAll(PDO::FETCH_OBJ);
+
   $results = pg_query_params($con, $sql, array($vhid));
   $cnt = 1;
   if (pg_num_rows($results)>0) {
@@ -94,10 +83,6 @@ if (isset($_POST['submit'])) {
           <div><img src="admin/img/vehicleimages/<?php echo htmlentities($result[12]); ?>" class="img-responsive" alt="image" width="900" height="560"></div>
         <?php } ?>
       </section>
-      <!--/Listing-Image-Slider-->
-
-
-      <!--Listing-detail-->
       <section class="listing-detail">
         <div class="container">
           <div class="listing_detail_head row">

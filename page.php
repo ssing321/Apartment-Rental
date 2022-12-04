@@ -39,10 +39,6 @@ include('includes/config.php');
                       <?php 
 $pagetype=$_GET['type'];
 $sql = "SELECT type,detail,PageName from tblpages where type=:pagetype";
-// $query = $dbh -> prepare($sql);
-// $query->bindParam(':pagetype',$pagetype,PDO::PARAM_STR);
-// $query->execute();
-// $results=$query->fetchAll(PDO::FETCH_OBJ);
 $results = pg_query_params($con, $sql, array($pagetype));
 $cnt=1;
 if(pg_num_rows($results)>0)
