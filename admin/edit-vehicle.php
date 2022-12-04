@@ -207,7 +207,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 														<div class="hr-dashed"></div>
 														<div class="form-group">
 															<div class="col-sm-12">
-																<h4><b>Vehicle Images</b></h4>
+																<h4><b>Apartment Images</b></h4>
 															</div>
 														</div>
 
