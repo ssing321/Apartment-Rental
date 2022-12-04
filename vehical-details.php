@@ -107,7 +107,7 @@ if (isset($_POST['submit'])) {
             </div>
             <div class="col-md-3">
               <div class="price_info">
-                <p>$<?php echo htmlentities($result[4]); ?> </p>per day
+                <p>$<?php echo htmlentities($result[4]); ?> </p>per month
 
               </div>
             </div>

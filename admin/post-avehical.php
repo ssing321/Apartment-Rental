@@ -1,6 +1,6 @@
 <?php
 session_start();
-//error_reporting(0);
+error_reporting(0);
 include('includes/config.php');
 if (strlen($_SESSION['alogin']) == 0) {
 	header('location:index.php');
@@ -68,7 +68,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 		// $lastInsertId = $dbh->lastInsertId();
 		if ($results) {
-			$msg = "Vehicle posted successfully";
+			$msg = "Apartment posted successfully";
 		} else {
 			$error = "Something went wrong. Please try again";
 		}

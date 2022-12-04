@@ -71,13 +71,13 @@ if (strlen($_SESSION['login']) == 0) {
 
     <?php
     $useremail = $_SESSION['login'];
-    $sql = "SELECT * from tblusers where EmailId=$useremail";
+    $sql = "SELECT * from tblusers where EmailId=$1";
     // $query = $dbh -> prepare($sql);
     // $query -> bindParam(':useremail',$useremail, PDO::PARAM_STR);
     // $query->execute();
     // $results=$query->fetchAll(PDO::FETCH_OBJ);
     $cnt = 1;
-    $results = pg_query($con, $sql);
+    $results = pg_query_params($con, $sql,array($useremail));
     if (pg_num_rows($results) > 0) {
       while ($result = pg_fetch_array($results)) { ?>
         <section class="user_profile inner_pages">
@@ -105,13 +105,13 @@ if (strlen($_SESSION['login']) == 0) {
                       <ul class="vehicle_listing">
                         <?php
                         $useremail = $_SESSION['login'];
-                        $sql = "SELECT tblvehicles.Vimage1 as Vimage1,tblvehicles.VehiclesTitle,tblvehicles.id as vid,tblbrands.BrandName,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.Status  from tblbooking join tblvehicles on tblbooking.VehicleId=tblvehicles.id join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand where tblbooking.userEmail=$useremail";
+                        $sql = "SELECT tblvehicles.Vimage1 as Vimage1,tblvehicles.VehiclesTitle,tblvehicles.id as vid,tblbrands.BrandName,tblbooking.FromDate,tblbooking.ToDate,tblbooking.message,tblbooking.Status  from tblbooking join tblvehicles on tblbooking.VehicleId=tblvehicles.id join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand where tblbooking.userEmail=$1";
                         // $query = $dbh->prepare($sql);
                         // $query->bindParam(':useremail', $useremail, PDO::PARAM_STR);
                         // $query->execute();
                         // $results = $query->fetchAll(PDO::FETCH_OBJ);
                         $cnt = 1;
-                        $results = pg_query($con, $sql);
+                        $results = pg_query_params($con, $sql, array($useremail));
                         if (pg_num_rows($results)>0) {
                           while ($result= pg_fetch_array($results)) {  ?>
 

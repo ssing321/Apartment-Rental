@@ -87,8 +87,8 @@ error_reporting(0);
                 <div class="product-listing-img"><img src="admin/img/vehicleimages/<?php echo htmlentities($result[8]); ?>" class="img-responsive" alt="Image" /> </a>
                 </div>
                 <div class="product-listing-content">
-                  <h5><a href="vehical-details.php?vhid=<?php echo htmlentities($result[0]); ?>"><?php echo htmlentities($result[29]); ?> , <?php echo htmlentities($result[1]); ?></a></h5>
-                  <p class="list-price">$<?php echo htmlentities($result[4]); ?> Per Day</p>
+                  <h5><a href="vehical-details.php?vhid=<?php echo htmlentities($result[0]); ?>"><?php echo htmlentities($result[27]); ?> , <?php echo htmlentities($result[1]); ?></a></h5>
+                  <p class="list-price">$<?php echo htmlentities($result[4]); ?> Per Month</p>
                   <ul>
                     <li><i class="fa fa-bath" aria-hidden="true"></i><?php echo htmlentities($result[7]); ?> Baths</li>
                     <li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($result[6]); ?> Built/Renovated</li>
