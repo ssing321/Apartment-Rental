@@ -16,7 +16,7 @@ $results = pg_query_params($con, $sql, array($email, $password));
 if(pg_num_rows($results) > 0)
 {
 $_SESSION['alogin']=$_POST['username'];
-echo "<script type='text/javascript'> document.location = 'change-password.php'; </script>";
+echo "<script type='text/javascript'> document.location = 'dashboard.php'; </script>";
 } else{
 
   echo "<script>alert('Invalid Details');</script>";
