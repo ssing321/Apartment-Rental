@@ -123,8 +123,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 														<td><?php echo htmlentities($result[2]); ?></td>
 														<td><?php echo htmlentities($result[3]); ?></td>
 														<td><?php echo htmlentities($result[4]); ?></td>
-														<td><a href="edit-vehicle.php?id=<?php echo $result[5]; ?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-															<a href="manage-vehicles.php?del=<?php echo $result[5]; ?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a>
+														<td><a href="edit-apt.php?id=<?php echo $result[5]; ?>"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+															<a href="manage-apt.php?del=<?php echo $result[5]; ?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-close"></i></a>
 														</td>
 													</tr>
 											<?php $cnt = $cnt + 1;

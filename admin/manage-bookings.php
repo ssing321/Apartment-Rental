@@ -134,7 +134,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 													<tr>
 														<td><?php echo htmlentities($cnt); ?></td>
 														<td><?php echo htmlentities($result[0]); ?></td>
-														<td><a href="edit-vehicle.php?id=<?php echo htmlentities($result[6]); ?>"><?php echo htmlentities($result[1]); ?> , <?php echo htmlentities($result[2]); ?></td>
+														<td><a href="edit-apt.php?id=<?php echo htmlentities($result[6]); ?>"><?php echo htmlentities($result[1]); ?> , <?php echo htmlentities($result[2]); ?></td>
 														<td><?php echo htmlentities($result[3]); ?></td>
 														<td><?php echo htmlentities($result[4]); ?></td>
 														<td><?php echo htmlentities($result[5]); ?></td>
