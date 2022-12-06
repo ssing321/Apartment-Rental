@@ -6,7 +6,7 @@
 			
 <li><a href="#"><i class="fa fa-files-o"></i> Communities</a>
 <ul>
-<li><a href="create-brand.php">Create Community</a></li>
+<li><a href="create-community.php">Create Community</a></li>
 <li><a href="manage-brands.php">Manage Community</a></li>
 </ul>
 </li>

@@ -8,11 +8,7 @@ error_reporting(0);
 <html lang="en">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="keywords" content="">
-  <meta name="description" content="">
+
   <title>Apartment Leasing Portal | Apartment Listing</title>
   <!--Bootstrap -->
   <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">
@@ -28,23 +24,13 @@ error_reporting(0);
   <!--FontAwesome Font Style -->
   <link href="assets/css/font-awesome.min.css" rel="stylesheet">
 
-  <!-- SWITCHER -->
-  <link rel="stylesheet" id="switcher-css" type="text/css" href="assets/switcher/css/switcher.css" media="all" />
-  <link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/red.css" title="red" media="all" data-default-color="true" />
-  <link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/orange.css" title="orange" media="all" />
-  <link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/blue.css" title="blue" media="all" />
-  <link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/pink.css" title="pink" media="all" />
-  <link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/green.css" title="green" media="all" />
-  <link rel="alternate stylesheet" type="text/css" href="assets/switcher/css/purple.css" title="purple" media="all" />
+
 
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
 </head>
 
 <body>
 
-  <!-- Start Switcher -->
-  <?php include('includes/colorswitcher.php'); ?>
-  <!-- /Switcher -->
 
   <!--Header-->
   <?php include('includes/header.php'); ?>
@@ -76,23 +62,16 @@ error_reporting(0);
           <div class="result-sorting-wrapper">
             <div class="sorting-count">
               <?php
-              $brand = $_POST['brand'];
-              $fueltype = $_POST['fueltype'];
-              $sql = "SELECT id from tblvehicles where tblvehicles.VehiclesBrand=$1 and tblvehicles.FuelType=$2";
-
-              $results = pg_query_params($con, $sql, array($brand, $fueltype));
-              $cnt = pg_num_rows($results);
+              $sql = "SELECT id from tblvehicles";
+              $results = pg_query($con, $sql);
+              $cnt = pg_num_rows($results)
               ?>
-              <p><span><?php echo htmlentities($cnt); ?> Listings</span></p>
+              <p><span> Listings</span></p>
             </div>
           </div>
 
-          <?php
-
-          $sql = "SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid  from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand where tblvehicles.VehiclesBrand=$1 and tblvehicles.FuelType=$2";
-
-          $results = pg_query_params($con, $sql, array($brand, $fueltype));
-          $cnt = pg_num_rows($results);
+          <?php $sql = "SELECT tblvehicles.*,tblbrands.BrandName,tblbrands.id as bid  from tblvehicles join tblbrands on tblbrands.id=tblvehicles.VehiclesBrand";
+          $results = pg_query($con, $sql);
           $cnt = 1;
           if (pg_num_rows($results) > 0) {
             while ($result = pg_fetch_array($results)) {  ?>
@@ -100,14 +79,14 @@ error_reporting(0);
                 <div class="product-listing-img"><img src="admin/img/vehicleimages/<?php echo htmlentities($result[8]); ?>" class="img-responsive" alt="Image" /> </a>
                 </div>
                 <div class="product-listing-content">
-                  <h5><a href="vehical-details.php?vhid=<?php echo htmlentities($result[0]); ?>"><?php echo htmlentities($result[27]); ?> , <?php echo htmlentities($result[1]); ?></a></h5>
+                  <h5><a href="apt-details.php?vhid=<?php echo htmlentities($result[0]); ?>"><?php echo htmlentities($result[27]); ?> , <?php echo htmlentities($result[1]); ?></a></h5>
                   <p class="list-price">$<?php echo htmlentities($result[4]); ?> Per Month</p>
                   <ul>
                     <li><i class="fa fa-bath" aria-hidden="true"></i><?php echo htmlentities($result[7]); ?> Baths</li>
-                    <li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($result[6]); ?> model</li>
-                    <li><i class="fa fa-bed" aria-hidden="true"></i><?php echo htmlentities($result[5]); ?> Bed Room</li>
+                    <li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($result[6]); ?> Built/Renovated</li>
+                    <li><i class="fa fa-bed" aria-hidden="true"></i><?php echo htmlentities($result[5]); ?>Beds</li>
                   </ul>
-                  <a href="vehical-details.php?vhid=<?php echo htmlentities($result[0]); ?>" class="btn">View Details <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                  <a href="apt-details.php?vhid=<?php echo htmlentities($result[0]); ?>" class="btn">View Details <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
                 </div>
               </div>
           <?php }
@@ -118,19 +97,23 @@ error_reporting(0);
         <aside class="col-md-3 col-md-pull-9">
           <div class="sidebar_widget">
             <div class="widget_heading">
-              <h5><i class="fa fa-filter" aria-hidden="true"></i> Find Your Apartment </h5>
+              <h5><i class="fa fa-filter" aria-hidden="true"></i> Filter Apartments </h5>
             </div>
             <div class="sidebar_filter">
-              <form action="search-carresult.php" method="post">
+              <form action="search-aptresult.php" method="post">
                 <div class="form-group select">
                   <select class="form-control" name="brand">
                     <option>Select Community</option>
 
                     <?php $sql = "SELECT * from  tblbrands ";
                     $results = pg_query($con, $sql);
+                    // $query = $dbh->prepare($sql);
+                    // $query->execute();
+                    // $results = $query->fetchAll(PDO::FETCH_OBJ);
+
                     $cnt = 1;
-                    if (pg_num_rows($results)> 0) {
-                      while($result = pg_fetch_array($results, NULL)) {       ?>
+                    if (pg_num_rows($results) > 0) {
+                      while ($result = pg_fetch_array($results)) {       ?>
                         <option value="<?php echo htmlentities($result[0]); ?>"><?php echo htmlentities($result[1]); ?></option>
                     <?php }
                     } ?>
@@ -139,31 +122,26 @@ error_reporting(0);
                 </div>
                 <div class="form-group select">
                   <select class="form-control" name="fueltype">
-                    <option>Select # of beds</option>
-                    <option value="Petrol">1</option>
-                    <option value="Diesel">2</option>
-                    <option value="electric">3</option>
+                    <option>Select # of Beds</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
                   </select>
                 </div>
 
                 <div class="form-group">
-                  <button type="submit" class="btn btn-block"><i class="fa fa-search" aria-hidden="true"></i> Search Apartment</button>
+                  <button type="submit" class="btn btn-block"><i class="fa fa-search" aria-hidden="true"></i> Search Apartmets</button>
                 </div>
               </form>
             </div>
           </div>
 
           
-        </aside>
-        <!--/Side-Bar-->
+        
       </div>
     </div>
   </section>
   <!-- /Listing-->
-
-
-
-
 
   <!--Login-Form -->
   <?php include('includes/login.php'); ?>

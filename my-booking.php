@@ -14,7 +14,7 @@ if (strlen($_SESSION['login']) == 0) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="keywords" content="">
-    <meta name="description" content="">
+    <meta name="description" content="">Apartment-listing
     <title>ApartmentsForYou</title>
     <!--Bootstrap -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css">
@@ -102,9 +102,9 @@ if (strlen($_SESSION['login']) == 0) {
                           while ($result = pg_fetch_array($results)) {  ?>
 
                             <li>
-                              <div class="vehicle_img"> <a href="vehical-details.php?vhid=<?php echo htmlentities($result[2]); ?>""><img src=" admin/img/vehicleimages/<?php echo htmlentities($result[0]); ?>" alt="image"></a> </div>
+                              <div class="vehicle_img"> <a href="apt-details.php?vhid=<?php echo htmlentities($result[2]); ?>""><img src=" admin/img/vehicleimages/<?php echo htmlentities($result[0]); ?>" alt="image"></a> </div>
                               <div class="vehicle_title">
-                                <h6><a href="vehical-details.php?vhid=<?php echo htmlentities($result[0]); ?>""> <?php echo htmlentities($result[3]); ?> , <?php echo htmlentities($result[1]); ?></a></h6>
+                                <h6><a href="apt-details.php?vhid=<?php echo htmlentities($result[0]); ?>""> <?php echo htmlentities($result[3]); ?> , <?php echo htmlentities($result[1]); ?></a></h6>
                   <p><b>From Date:</b> <?php echo htmlentities($result[4]); ?><br /> <b>To Date:</b> <?php echo htmlentities($result[5]); ?></p>
                 </div>
                 <?php if ($result[7] == 1) { ?>

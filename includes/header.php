@@ -55,7 +55,7 @@
       <div class="collapse navbar-collapse" id="navigation">
         <ul class="nav navbar-nav">
           <li><a href="index.php">Home</a> </li>
-          <li><a href="car-listing.php">Apartment Listing</a>
+          <li><a href="apt-listing.php">Apartment Listing</a>
 
         </ul>
       </div>
